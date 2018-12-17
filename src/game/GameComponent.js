@@ -5,6 +5,8 @@ import GameInfoComponent from './GameInfoComponent';
 import GameChatComponent from './GameChatComponent';
 import PlayerHistoryComponent from './PlayerHistoryComponent';
 
+import { gameStore } from '../store/GameStore';
+
 class GameComponent extends Component {
   render() {
     return (
