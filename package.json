@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "chess.js": "^0.10.2",
+    "chessground": "^7.3.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",

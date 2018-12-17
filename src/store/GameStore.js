@@ -1,15 +1,17 @@
 import {BehaviorSubject} from 'rxjs';
+const Chess = require('chess.js').Chess;
 
 
 const defaultState = {
-
 };
+
 const subject = new BehaviorSubject();
 
 class GameStore {
     constructor() {
-        console.log('store');
+        this.state = Object.assign({}, defaultState, {});
     }
+
 }
 
 export default new GameStore();
