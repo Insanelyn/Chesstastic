@@ -6,6 +6,7 @@
     "chess.js": "^0.10.2",
     "chessground": "^7.3.4",
     "react": "^16.6.3",
+    "react-chessground": "^1.0.0",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-const Chessground = require("chessground").Chessground;
+import Chessground from 'react-chessground'
+import 'react-chessground/dist/styles/chessground.css'
 
 class GameBoardComponent extends Component {
   onComponentDidMount() {
-    const ground = Chessground(document.body, config);
   }
   render() {
     return (
       <div>
         GameBoardComponent
+        <Chessground />
       </div>
     );
   }

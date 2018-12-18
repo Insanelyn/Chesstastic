@@ -5,9 +5,18 @@ import GameInfoComponent from './GameInfoComponent';
 import GameChatComponent from './GameChatComponent';
 import PlayerHistoryComponent from './PlayerHistoryComponent';
 
-import { gameStore } from '../store/GameStore';
+import gameStore from '../store/GameStore';
 
 class GameComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  componentDidMount() {
+    gameStore.getSubject().subscribe((st) => {
+      this.setState(st);
+    });
+  }
   render() {
     return (
       <div>
@@ -19,6 +28,7 @@ class GameComponent extends Component {
         <div>
             <PlayerHistoryComponent />
         </div>
+        <p>Demo-message:{this.state.message}</p>
       </div>
     );
   }
