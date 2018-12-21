@@ -34,7 +34,7 @@
 
 <style scoped>
     .container-fluid{
-        background-color: orange;
+        background-color: lightsalmon;
         opacity: 0.9;
         display: flex;
         align-items: center;
