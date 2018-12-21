@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TheChessboard from './components/TheChessboard.vue'
+import TheChessboard from './lobby/components/TheChessboard.vue'
 
 export default {
   name: 'app',
