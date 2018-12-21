@@ -25,9 +25,8 @@
 </template>
 
 <script>
-import TheChessboard from './components/TheChessboard.vue'
-import io from 'socket.io-client'
-const socket = io.connect('http://localhost:5000')
+import TheChessboard from './lobby/components/TheChessboard.vue'
+
 
 export default {
   name: 'app',
