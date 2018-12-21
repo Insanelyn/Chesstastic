@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import TheChessboard from './components/TheChessboard.vue'
+import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
 
 export default {
