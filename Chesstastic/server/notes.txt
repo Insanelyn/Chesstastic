@@ -1,0 +1,200 @@
+// helpers -------------------------------------------------------------------------------
+
+const roomMeths = {
+	newRoom(oldRooms = {}, {
+		plr1,
+		plr2
+	}) {
+		const room = {
+			id: Object.keys(oldRooms).length,
+			users: {
+				plr1: plr1.username,
+				plr2: plr2.username,
+			},
+			chatMsgs: [],
+			chessGame: chess.create()
+		};
+		return { ...oldRooms,
+			[room.id]: room
+		};
+	},
+	deleteRoom(oldRooms, delRoomId) {
+		const filtered = Object.keys(oldRooms)
+			.filter(key => key !== delRoomId)
+			.reduce((obj, key) => {
+				obj[key] = oldRooms[key];
+				return obj;
+			}, {});
+		return filtered;
+	},
+	updateRoom(oldRooms, roomToUpdate) {
+		const updatedRoomsTemp = this.deleteRoom(oldRooms, roomToUpdate.id)
+		return { ...updatedRoomsTemp,
+			[roomToUpdate.id]: roomToUpdate
+		}
+	}
+};
+
+// helpers - mocked data -----------------------------------------------------------
+
+/*
+const users = new Set();
+let usersNotInRoom = [];
+let currentNRooms = 0;
+
+let connections = [];
+
+
+const id = usersNotInRoom.length; // this will produce an error when the first user disconnects, and another gets added 
+  
+  usersNotInRoom = [...usersNotInRoom, {id: usersNotInRoom, username: socket.userName}];
+
+  console.log(`Number of connected users: ${connections.length}`);
+  
+  socket.on('disconnect', (data) => {
+    if(!socket.username) return;
+    users.delete(socket.username);
+    connections.splice(connections.indexOf(socket), 1);
+    console.log(`Number of connected users: ${connections.length}`);
+ 
+  });
+
+  socket.on('MSG', (data) => {
+    console.log(data);
+    io.sockets.emit('NEW_MSG', { msg: data });
+  });
+
+  socket.on('NEW_USER', (data, callback) => {
+    // if we would use a DB... See USER_LOGIN.
+    callback(true);
+    socket.username = data;
+    users.add(socket.username);
+  });
+
+  const chessGame = io.of('/chessgame');  
+
+  socket.on('USER_LOGIN', (user) => {
+    // this would only work temp. If persistent, we need a DB.
+    users.add({email: user.email, username: user.username});
+    // match with usersNotInRoom, update (we know that this user currently not is a room) with ...
+  });
+
+
+
+
+  socket.on('ENTER_ROOM', (data) => {
+    // match two users, NOT in a Room;
+    // new room
+    // assign players to plr1 or plr2 by... randomization? ...by logic?
+    // what happend if no match is found???
+
+   
+
+   socket.join("chessgame-" + currentNRooms);
+
+   const plr1 = { username: "1" };
+   const plr2 = { username: "2" };
+   rooms = roomMeths.newRoom(rooms, { plr1, plr2 });
+
+   const thisRoomId = `chessgame-${Objects.keys(rooms).length}`; 
+
+   io.sockets.in(thisRoomId).emit('CHAT_MSG', `${plr1} & ${plr2} present.`);
+   currentNRooms++;
+  });
+
+  socket.on('LEAVE_ROOM', (room) => {
+    const id = room.id;
+    rooms = roomMeths.deleteRoom(rooms, id);
+   // socket.leave(io.nsps['/'].adapter.rooms["chessgame-" + id);
+  });
+
+  socket.on('CHESSACTION_IN_ROOM', (room) => {
+    const id = room.id;
+    // find id for room! then...
+    //rooms = roomMeths.updateRoom(rooms, room);  
+  });
+
+	
+
+
+*/
+});
+
+
+
+Should be done with Jest!
+
+As you can notice this uses object, not array as it's basic structure...
+
+I believe this is wise, if the application should be able to scale well.
+
+The id shoud be replace with some kind of hash! Perhaps we could use new Set(...)
+
+---
+
+const rooms = roomMeths.newRoom({}, {plr1: {username: "hey"}, plr2: {username: "what"}});
+const newRooms = roomMeths.newRoom(rooms, {plr1: {username: "hey2"}, plr2: {username: "what2"}});
+console.log(newRooms);
+---------------------------
+OUTPUT:
+0: {…}
+​​
+chatMsgs: Array []
+​​
+id: 0
+​​
+users: Object { plr1: "hey", plr2: "what" }
+​​
+<prototype>: Object { … }
+​
+1: {…}
+​​
+chatMsgs: Array []
+​​
+id: 1
+​​
+users: Object { plr1: "hey2", plr2: "what2" }
+------------------------------
+
+let room1 = { ...newRooms["0"]};
+room1.users.plr1 = "TEST";
+
+const newRooms2 = roomMeths.updateRoom(newRooms, room1);
+console.log(newRooms2)
+-----------------------------
+OUTPUT:
+0: {…}
+​​
+chatMsgs: Array []
+​​
+id: 0
+​​
+users: Object { plr1: "TEST", plr2: "what" }
+​​
+<prototype>: Object { … }
+​
+1: {…}
+​​
+chatMsgs: Array []
+​​
+id: 1
+​​
+users: Object { plr1: "hey2", plr2: "what2" }
+-------------------------------------------
+
+const id = newRooms["0"].id.toString();
+const newRooms3 = roomMeths.deleteRoom(newRooms, id)
+
+console.log(newRooms3)
+-----------------------------------------
+OUTPUT:
+1: {…}
+​​
+chatMsgs: Array []
+​​
+id: 1
+​​
+users: Object { plr1: "hey2", plr2: "what2" }
+------------------------------------------
+
+
