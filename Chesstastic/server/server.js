@@ -11,7 +11,7 @@
 const express = require('express');
 const app = express();
 const randomFullname = require('random-fullName');
-const chess = require('chess');
+const Chess = require('chess.js').Chess;
 
 // ---------------------------------------------------------------------------------------
 // helpers - mocked data -----------------------------------------------------------------
@@ -79,6 +79,7 @@ let tempRooms = 666;
 let data = {};
 
 let gameRooms = {};
+let gameRoomsData = {};
 
 let wantsToPlay = [];
 
@@ -88,6 +89,7 @@ io.on('connection', (socket) => {
     
 
     socket.on('SWITCH_ROOM', (room) => {
+      if(!wantsToPlay.includes(socket.id)) {
           wantsToPlay.push(socket.id);
           let gameRoom = tempRooms.toString(); 
           socket.join(gameRoom);
@@ -96,37 +98,51 @@ io.on('connection', (socket) => {
           if(wantsToPlay.length > 1) {
             io.sockets.in(thisRoom).emit('ENTER_ROOM', gameRoom);
             io.sockets.in(thisRoom).emit('NEW_MSG', { message: `${wantsToPlay[0]} vs ${wantsToPlay[1]}`, user: socket.id });   
+            io.sockets.in(thisRoom).emit('PLRS', { w: wantsToPlay[0], b: wantsToPlay[1], turn: "white", status: "white is up" });
             wantsToPlay = []; 
             tempRooms++;  
-            gameRooms[gameRoom] = chess.create();    
+            gameRooms[gameRoom] = new Chess();
+            gameRoomsData[gameRoom] = {
+              status: "white is up",
+              turn: "white",
+              plrs: { w: wantsToPlay[0], b: wantsToPlay[1] }
+            };
           } else {
             io.sockets.in(thisRoom).emit('NEW_MSG', { message: `${wantsToPlay[0]} awaits a partner`, user: socket.id }); 
           }
-        
+      }
     });
     
     socket.on('MAKE_MOVE', (data) => {
-      let status = gameRooms[thisRoom].getStatus();
-      let validMoves = Array.of(status.notatedMoves).flat(); 
-      let validMovesAsArr = Object.values(validMoves["0"]);   
-      let validMovesLen = validMovesAsArr.length;
+       let validMoves = gameRooms[thisRoom].moves();
+
+      let validMovesLen = validMoves.length;
        
       const randMinMax = (min, max) => Math.floor((Math.random() * Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
       let rV = randMinMax(0, validMovesLen);
-  
-      let newMove = `${validMovesAsArr[rV].src.file}${validMovesAsArr[rV].src.rank}-${validMovesAsArr[rV].dest.file}${validMovesAsArr[rV].dest.rank}`;
+      let move = gameRooms[thisRoom].move(validMoves[rV]); 
 
-    //  gameRooms[thisRoom].move(ObvalidMovesAsArr[rV])
-      status = gameRooms[thisRoom].getStatus();
-      let board = [...status.board.squares];  
-        
-      io.sockets.in(thisRoom).emit('CHESS_ACTION', { move: newMove, board: board, user: socket.id }); 
+      gameRooms[thisRoom].turn();
+     
+      if (gameRooms[thisRoom].in_checkmate() === true) {
+        gameRoomsData[thisRoom].status = "CHECKMATE!";
+      } else if (gameRooms[thisRoom].in_draw() === true) {
+        gameRoomsData[thisRoom].status = 'DRAW!';
+      } else {
+        gameRoomsData[thisRoom].turn === "white"? gameRoomsData[thisRoom].turn = "black": gameRoomsData[thisRoom].turn = "white";
+        gameRoomsData[thisRoom].status = `${gameRoomsData[thisRoom].turn} is up!`;
+        if (gameRooms[thisRoom].in_check() === true) {
+          gameRoomsData[thisRoom].status = 'CHECK!';        
+        }
+      }
+
+      io.sockets.in(thisRoom).emit('CHESS_ACTION', { turn: gameRoomsData[thisRoom].turn, board: gameRooms[thisRoom].ascii(), status: gameRoomsData[thisRoom].status }); 
+ 
     });
 
     socket.on('MSG_SEND', (msg) => {
       io.sockets.in(thisRoom).emit('NEW_MSG', { message: msg, user: socket.id });   
     });
-
 
   setInterval(() => {
 	socket.emit('MOCKDATA_SEEK', mockSeekUsers(30));

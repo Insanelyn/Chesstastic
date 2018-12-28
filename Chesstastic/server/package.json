@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chess": "^0.3.3",
+    "chess.js": "^0.10.2",
     "express": "^4.16.4",
     "nodemon": "^1.18.9",
     "random-fullName": "^1.0.0",

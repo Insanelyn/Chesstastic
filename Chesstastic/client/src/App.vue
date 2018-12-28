@@ -19,12 +19,18 @@
       </div>
 
     </div>
-
+   
     <div id="rooms">
       <button v-on:click="switchRoom()">PLAY</button> 
-
       <button v-on:click="makeRandomMove()">MAKE RANDOM MOVE</button>
 
+      <div id="game-data">
+       <p> status: {{this.status}} </p>
+
+       <pre>
+{{this.board}}    
+       </pre> 
+      </div>  
     </div>
 
     <div id="temp-chat">
@@ -55,23 +61,24 @@
 </template>
 
 <script>
-import TheChessboard from './components/TheChessboard.vue';
 import io from 'socket.io-client';
 
 const socket = io.connect('http://localhost:5000');
 
 export default {
   name: 'app',
-  components: {
-    TheChessboard,
-  },
+  components: {},
   data () {
    return {
      userData: [],
      msgs: [],
      message: '',
      room: 'NOT PLAYING',
-     board: []
+     board: "",
+     plrW: "",
+     plrB: "",
+     turn: "",   
+     status: ""   
    }
   },
   mounted () {
@@ -90,9 +97,17 @@ export default {
     });
 
     socket.on('CHESS_ACTION', (data) => {
+     // this.board = data.board;
       this.board = data.board;
-      console.log(this.board);  
-      this.msgs.push(`${data.user} made a move: ${data.move}`);  
+      this.status = data.status;
+      this.turn = data.turn;    
+     // this.msgs.push(`${data.user} made a move: ${data.move}`);  
+    });
+    socket.on('PLRS', (plrs) => {
+       this.plrW = plrs.w;
+       this.plrB = plrs.b;
+       this.turn = plrs.turn;
+       this.status = plrs.status;
     });
   },
   methods: {
@@ -142,9 +157,9 @@ export default {
 #rooms {
   position: absolute;
   top: 75px;
-  left: 50%;
+  left: 500px;
   margin: auto;
-  width: 100px;
+  width: 425px;
   height: 600px;
   padding: 10px; 
   background-color: #ff3333; 
