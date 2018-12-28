@@ -4,6 +4,8 @@
 
     <TheChessboard />
     <TheHeader />
+    <TheFooter />
+
 
   </div>
 
@@ -12,12 +14,14 @@
 <script>
 import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
+import TheFooter from './allpages/TheFooter.vue'
 
 export default {
   name: 'app',
   components: {
     TheChessboard,
-      TheHeader
+      TheHeader,
+      TheFooter
   }
 }
 </script>
