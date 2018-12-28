@@ -17,7 +17,6 @@
     "stripe": "^5.10.0",
     "unsplash": "^4.2.0",
     "vue": "^2.5.13",
-    "vue-chessboard": "^0.6.4",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^3.0.4",
     "vue-stripe-checkout": "^1.0.2",

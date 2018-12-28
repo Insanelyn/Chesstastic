@@ -2,8 +2,8 @@
 
   <div id="app">
 
-    <TheHeader />
     <TheChessboard />
+    <TheHeader />
 
   </div>
 
@@ -12,15 +12,11 @@
 <script>
 import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
-import {chessboard} from 'vue-chessboard'
-import 'vue-chessboard/dist/vue-chessboard.css'
-import Chessboard from "../node_modules/vue-chessboard/src/components/chessboard/index.vue";
 
 export default {
   name: 'app',
   components: {
-      Chessboard,
-      TheChessboard,
+    TheChessboard,
       TheHeader
   }
 }
