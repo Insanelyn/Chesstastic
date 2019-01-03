@@ -1,22 +1,16 @@
 <template>
 
     <div class="container-fluid">
-        <div>
-            <h1>Chesstastic</h1>
-        </div>
+      <div class="social">
 
-        <div class="nav-list">
-            <nav>
-                <ul class="nav">
-                    <li>Spela</li>
-                    <li>Lära sig</li>
-                    <li>Titta</li>
-                    <li>Gemenskap</li>
-                    <li>Verktyg</li>
-                </ul>
-            </nav>
-        </div>
-        <img class="branding-logo" src="../assets/images/chess_piece_king.png">
+          <a href="https://instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
+
+          <a href="https://twitter.com/?lang=sv"><i class="fab fa-twitter fa-2x"></i></a>
+
+          <a href="https://www.facebook.com/"><i class="fab fa-facebook fa-2x"></i></a>
+
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+      </div>
     </div>
 </template>
 
@@ -34,36 +28,26 @@
 
 <style scoped>
     .container-fluid{
-        background-color: red;
+        background-color: lightsalmon;
         opacity: 0.9;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: absolute;
+        bottom: 0;
     }
 
-    h1 {
-        font-family: "Lucida Calligraphy";
-        font-size: 4em;
-        margin-left: -25%;
-        margin-right: 15%;
+.fab {
+    padding: 20px;
+}
 
-    }
+a {
+    text-decoration: none;
+    color: #fff;
+}
 
-    .branding-logo {
-        width: 100px;
-        height: 100px;
-        float: right;
-        margin-left: 420px;
-    }
-
-
-    li {
-        list-style-type: none;
-        margin-right: 8px;
-    }
-
-    li:hover {
-        color: grey;
-    }
+a:hover {
+    color: #999999;
+}
 
 </style>
