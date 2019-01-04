@@ -4,7 +4,7 @@
 
     <TheChessboard />
     <TheHeader />
-
+    <HistoryComponent />
   </div>
 
 </template>
@@ -12,12 +12,14 @@
 <script>
 import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
+import HistoryComponent from './game/components/HistoryComponent.vue'
 
 export default {
   name: 'app',
   components: {
     TheChessboard,
-      TheHeader
+    TheHeader,
+    HistoryComponent
   }
 }
 </script>
