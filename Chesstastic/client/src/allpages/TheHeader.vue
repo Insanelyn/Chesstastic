@@ -8,19 +8,23 @@
         <div class="nav-list">
             <nav>
                 <ul class="nav">
-                    <li>Spela</li>
+                    <li><router-link to="/game">Spela</router-link></li>
                     <li>Lära sig</li>
                     <li>Titta</li>
                     <li>Gemenskap</li>
                     <li>Verktyg</li>
                 </ul>
             </nav>
+
+
         </div>
         <img class="branding-logo" src="../assets/images/chess_piece_king.png">
     </div>
 </template>
 
 <script>
+
+    import VueRouter from 'vue-router';
     export default {
         data() {
             return {

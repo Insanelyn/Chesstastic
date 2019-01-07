@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid">
 
-        <div class="historyBox">
-            <h1>History</h1>
+    <div class="container-fluid">
+        <div class="chatBox">
+            <h1>Chat</h1>
         </div>
     </div>
 </template>
@@ -24,13 +24,11 @@
         background-color: lightskyblue;
     }
 
-    .historyBox {
+    .chatBox {
         width: 350px;
         height: 350px;
-        float: right;
         background-color: dimgrey;
         opacity: 0.7;
-        margin-top: 50px;
     }
 
     h1 {
