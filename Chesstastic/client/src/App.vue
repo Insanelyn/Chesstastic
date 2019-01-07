@@ -4,6 +4,7 @@
 
     <TheChessboard />
     <TheHeader />
+    <SeekComponentLayout />
 
   </div>
 
@@ -12,13 +13,15 @@
 <script>
 import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
+import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
 
 export default {
   name: 'app',
   components: {
-    TheChessboard,
+      SeekComponentLayout,
+      TheChessboard,
       TheHeader
-  }
+  },
 }
 </script>
 
