@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chess": "^0.3.3",
+    "bcrypt": "^3.0.3",
+    "chess.js": "^0.10.2",
+    "connect-mongo": "^2.0.3",
     "express": "^4.16.4",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.1",
+    "nodemon": "^1.18.9",
     "random-fullName": "^1.0.0",
     "socket.io": "^2.2.0"
   },
