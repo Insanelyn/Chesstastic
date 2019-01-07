@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <ChatComponent />
         <chessboard class="board" :fen="currentFen" @onMove="showInfo" />
-        <HistoryComponent />
+        <ingameBox />
     </div>
 
 </template>
@@ -12,7 +12,7 @@
 
 
     import ChatComponent from './ChatComponent.vue'
-    import HistoryComponent from './HistoryComponent.vue'
+    import ingameBox from './ingameBox.vue'
     import { chessboard } from 'vue-chessboard'
     import 'vue-chessboard/dist/vue-chessboard.css'
 
@@ -25,7 +25,7 @@
         components: {
             chessboard,
             ChatComponent,
-            HistoryComponent
+            ingameBox
         },
         data () {
             return {
