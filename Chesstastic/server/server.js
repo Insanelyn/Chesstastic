@@ -5,7 +5,6 @@
 //
 // ***************************************************************************************
 
-
 // ---------------------------------------------------------------------------------------
 // dependencies --------------------------------------------------------------------------
 const express = require('express');
@@ -22,7 +21,7 @@ let {   trylogin,
   createUser } = require('./controllers.js');
 
 // ---------------------------------------------------------------------------------------
-// helpers -------------------------------------------------------------------------------
+// helpers (mock) ------------------------------------------------------------------------
 const randMinMax = (min, max) => Math.floor((Math.random() * Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
 
 function mockSeekUsers(n) {
@@ -119,14 +118,12 @@ io.on('connection', (socket) => {
               "white",
               { w: usersInQue[0], b: usersInQue[1] }
             );
-
           } else {
             io.sockets.in(thisRoom).emit('NEW_MSG', { 
               message: `${usersInQue[0]} awaits a partner`, 
               user: socket.id,
               color: "white",  
               }); 
-
           }
       }
     });
@@ -134,7 +131,6 @@ io.on('connection', (socket) => {
   socket.on('MAKE_MOVE', (data) => { // hantera om den som trycker på "move" INTE gör ett drag
 
       rooms[thisRoom].game.load(data.fen);
-      
       rooms[thisRoom].game.turn();
 
       let thisPlr = rooms[thisRoom].turn === "white"?  
@@ -146,26 +142,19 @@ io.on('connection', (socket) => {
      
       if (rooms[thisRoom].game.in_checkmate() === true) {
         rooms[thisRoom].status = "CHECKMATE!";
-
       } else if (rooms[thisRoom].game.in_draw() === true) {
         rooms[thisRoom].status = 'DRAW!';
-
       } else if (rooms[thisRoom].game.in_check() === true) {
           rooms[thisRoom].status = 'CHECK!';    
-    
       } else {
-
         rooms[thisRoom].status = `${rooms[thisRoom].turn} is up!`;
-
       }
-
        io.sockets.in(thisRoom).emit('CHESS_ACTION', { 
          turn: rooms[thisRoom].turn, 
          board: rooms[thisRoom].game.ascii(), 
          status: rooms[thisRoom].status,
          fen: rooms[thisRoom].game.fen()
        }); 
-
     });
 
     socket.on('MSG_SEND', (msg) => {
@@ -179,5 +168,7 @@ io.on('connection', (socket) => {
 	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
   }, 1000);
 });
+
+
 
 
