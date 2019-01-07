@@ -4,7 +4,8 @@
 
     <TheChessboard />
     <TheHeader />
-    <HistoryComponent />
+    <ingameBox />
+
   </div>
 
 </template>
@@ -12,14 +13,14 @@
 <script>
 import TheChessboard from './game/components/TheChessboard.vue'
 import TheHeader from './allpages/TheHeader.vue'
-import HistoryComponent from './game/components/HistoryComponent.vue'
+import ingameBox from './game/components/ingameBox.vue'
 
 export default {
   name: 'app',
   components: {
     TheChessboard,
     TheHeader,
-    HistoryComponent
+    ingameBox
   }
 }
 </script>
