@@ -2,19 +2,21 @@
 
   <div id="app">
 
-    <TheChessboard />
     <TheHeader />
     <SeekComponentLayout />
     <router-view />
+    <router-view></router-view>
 
   </div>
 
 </template>
 
 <script>
-import TheChessboard from './game/components/TheChessboard.vue'
+
 import TheHeader from './allpages/TheHeader.vue'
 import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
+
+
 
 export default {
   name: 'app',
@@ -23,6 +25,9 @@ export default {
       TheChessboard,
       TheHeader
   },
+
+    TheHeader
+  }
 }
 </script>
 

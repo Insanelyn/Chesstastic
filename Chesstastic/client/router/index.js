@@ -4,6 +4,7 @@ import SeekComponentLayout from '../src/lobby/components/SeekComponentLayout'
 import SnabbParningContent from '../src/lobby/components/SnabbParningContent'
 import LobbyContent from '../src/lobby/components/LobbyContent'
 import KorrespondensContent from '../src/lobby/components/KorrespondensContent'
+import ContainerComponent from '@/game/components/ContainerComponent'
 
 const routes = [
     {
@@ -31,6 +32,9 @@ const routes = [
         name:'KorrespondensContent',
         component: KorrespondensContent
     },
+        name:'Container',
+        component: ContainerComponent
+    }
 
 ];
 
