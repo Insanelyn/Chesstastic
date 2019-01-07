@@ -2,22 +2,28 @@
 
   <div id="app">
 
-    <TheChessboard />
     <TheHeader />
+    <router-view></router-view>
+    <ingameBox />
 
   </div>
 
 </template>
 
 <script>
-import TheChessboard from './game/components/TheChessboard.vue'
+
 import TheHeader from './allpages/TheHeader.vue'
+
+import ingameBox from './game/components/ingameBox.vue'
+
 
 export default {
   name: 'app',
   components: {
+
     TheChessboard,
-      TheHeader
+    TheHeader,
+    ingameBox
   }
 }
 </script>
@@ -29,3 +35,4 @@ export default {
   margin:50px;
 }
 </style>
+

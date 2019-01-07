@@ -1,5 +1,5 @@
 {
-  "name": "Client",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,16 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@babel/core": "^7.2.2",
     "axios": "^0.18.0",
     "buttercms": "^1.1.2",
-    "core-js": "^2.6.1",
     "faker": "^4.1.0",
-    "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
+    "socket.io": "^2.0.4",
     "stripe": "^5.10.0",
     "unsplash": "^4.2.0",
     "vue": "^2.5.13",
-    "vue-chessboard": "^0.6.4",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^3.0.4",
     "vue-stripe-checkout": "^1.0.2",
@@ -52,5 +51,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
