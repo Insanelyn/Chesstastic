@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import TheChessboard from '@/components/TheChessboard'
+import TheChessboard from "../src/game/components/TheChessboard"
 
 const routes = [
     {
