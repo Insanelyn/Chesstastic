@@ -1,22 +1,28 @@
 <template>
 
-    <nav class="horizontal top-border block-section">
-        <div class="col-md-20" id="tabs">
-            <a href="#" v-for="tab in tabs" @click.prevent="setActiveTabName(tab.name)">
-                {{ tab.displayName }}
-            </a>
-        </div>
+    <div>
 
-        <div v-if="displayContents(activeTabName, 'snabb-parning')">
-            <SnabbParningContent></SnabbParningContent>
-        </div>
-        <div v-if="displayContents(activeTabName, 'lobby')">
-            <LobbyContent></LobbyContent>
-        </div>
-        <div v-if="displayContents(activeTabName, 'korrespondens')">
-            <KorrespondensContent></KorrespondensContent>
-        </div>
-    </nav>
+
+        <router-link tag="a" :to = "{name: 'SnabbParning',}">
+            <a href="#">
+                Tab 1
+            </a>
+        </router-link>
+
+        <router-link tag="a" :to = "{name: 'LobbyContent',}">
+            <a href="#">
+                Tab 2
+            </a>
+        </router-link>
+
+        <router-link tag="a" :to = "{name: 'KorrespondensContent',}">
+            <a href="#">
+                Tab 3
+            </a>
+        </router-link>
+
+
+    </div>
 
 </template>
 
@@ -34,41 +40,7 @@
             LobbyContent,
             KorrespondensContent
         },
-
-        data () {
-            return {
-                tabs: [
-                    {
-                        name: 'snabb-parning',
-                        displayName: 'Snabb parning'
-                    },
-                    {
-                        name: 'lobby',
-                        displayName: 'Lobby'
-                    },
-                    {
-                        name: 'korrespondens',
-                        displayName: 'Korrespondens'
-                    }
-                ],
-                activeTabName: null,
-            };
-        },
-        mounted() {
-            this.activeTabName = this.tabs[0].name;
-        },
-        methods: {
-            setActiveTabName(name) {
-                this.activeTabName = name;
-            },
-            displayContents(name) {
-                return this.activeTabName === name;
-            },
-        },
-        created() {
-        },
     }
-
 </script>
 
 <style scoped>

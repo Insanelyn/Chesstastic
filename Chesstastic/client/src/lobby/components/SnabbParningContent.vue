@@ -1,5 +1,7 @@
 <template>
-
+<div>
+    <p>gå bananas</p>
+</div>
 </template>
 
 <script>
@@ -10,6 +12,9 @@
 </script>
 
 <style scoped>
+    p {
+        background-color: red;
+    }
 
 
 </style>

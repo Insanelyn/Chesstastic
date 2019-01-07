@@ -1,5 +1,9 @@
 <template>
-
+<div>
+    <p>
+        dudu
+    </p>
+</div>
 </template>
 
 <script>

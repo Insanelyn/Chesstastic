@@ -5,6 +5,7 @@
     <TheChessboard />
     <TheHeader />
     <SeekComponentLayout />
+    <router-view />
 
   </div>
 
@@ -18,7 +19,6 @@ import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
 export default {
   name: 'app',
   components: {
-      SnabbParningContent,
       SeekComponentLayout,
       TheChessboard,
       TheHeader
