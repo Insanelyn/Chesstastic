@@ -6,7 +6,7 @@
 
     <button type="button"> Spela med en vän </button>
 
-    <button type="button"><i class="fas fa-ban"></i> Återställ</button>
+    <button type="button"> Spela mot datorn </button>
 
 
 </div>
@@ -20,5 +20,13 @@
 </script>
 
 <style scoped>
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        margin-right: auto;
+        margin-left: auto;
+    }
 
 </style>
