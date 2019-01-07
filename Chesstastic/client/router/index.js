@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router';
-import TheChessboard from '@/game/components/TheChessboard'
+import ContainerComponent from '@/game/components/ContainerComponent'
 
 const routes = [
     {
         path: '/game',
-        name:'Chessboard',
-        component: TheChessboard
-    },
+        name:'Container',
+        component: ContainerComponent
+    }
 
 ];
 
