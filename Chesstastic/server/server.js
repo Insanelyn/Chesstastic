@@ -1,20 +1,30 @@
-// *************************************************************************************
+// ***************************************************************************************
 //
-// BACKEND FOR LICHESS-ISH CHESS GAME PLATFORM
+//                    >>> BACKEND FOR CHESSTASTIC <<<
 //
-// 
 //
-// *************************************************************************************
+// ***************************************************************************************
+
 
 // ---------------------------------------------------------------------------------------
 // dependencies --------------------------------------------------------------------------
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 const randomFullname = require('random-fullName');
 const Chess = require('chess.js').Chess;
+let { Instance, que } = require('./datastruct.js');
+let {   trylogin,
+  updateHistory,
+  findByUsername,
+  findById,
+  findAllUsers,
+  createUser } = require('./controllers.js');
 
 // ---------------------------------------------------------------------------------------
-// helpers - mocked data -----------------------------------------------------------------
+// helpers -------------------------------------------------------------------------------
+const randMinMax = (min, max) => Math.floor((Math.random() * Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+
 function mockSeekUsers(n) {
 
 	const mockTime = () => {
@@ -22,7 +32,7 @@ function mockSeekUsers(n) {
 		const val2 = randMinMax(1, 30);
 		return `${val1}+${val2}`;
 	};
-	const randMinMax = (min, max) => Math.floor((Math.random() * Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+
 	const isRanked = () => randMinMax(0, 2) === 0 ? "Ej rankad" : "Raknad";
 
 	let users = [];
@@ -47,11 +57,7 @@ function mockSeekUsers(n) {
 	return users;
 }
 
-app.get("/seeksAPI", (req, res) => {
-	const mockData = mockSeekUsers(50);
-	const asJSON = JSON.stringify(mockData);
-	res.json(asJSON);
-});
+
 // ---------------------------------------------------------------------------------------
 // server --------------------------------------------------------------------------------
 const PORT = 5000;
@@ -64,88 +70,114 @@ const server = app.listen(PORT, () => {
 
 app.get("/", (req, res) => {
 	res.redirect("localhost:8080");
-
 });
 
+
+createUser({ username: "test1232", password: "test1232" });
 // ---------------------------------------------------------------------------------------
 // socket.io -----------------------------------------------------------------------------
-
 const io = require("socket.io")(server);
 
-const lobby = io.of('/lobby');
+let tempRoomName = 666;
+let rooms = {};
+let usersInQue = que;
 
-let tempRooms = 666;
-
-let data = {};
-
-let gameRooms = {};
-let gameRoomsData = {};
-
-let wantsToPlay = [];
-
-io.on('connection', (socket) => {   
-
+io.on('connection', (socket) => {  
+  
     let thisRoom = 'X';
     
-
     socket.on('SWITCH_ROOM', (room) => {
-      if(!wantsToPlay.includes(socket.id)) {
-          wantsToPlay.push(socket.id);
-          let gameRoom = tempRooms.toString(); 
+      if(!usersInQue.includes(socket.id)) {
+          usersInQue.push(socket.id);
+          let gameRoom = tempRoomName.toString(); 
           socket.join(gameRoom);
           thisRoom = gameRoom;
 
-          if(wantsToPlay.length > 1) {
-            io.sockets.in(thisRoom).emit('ENTER_ROOM', gameRoom);
-            io.sockets.in(thisRoom).emit('NEW_MSG', { message: `${wantsToPlay[0]} vs ${wantsToPlay[1]}`, user: socket.id });   
-            io.sockets.in(thisRoom).emit('PLRS', { w: wantsToPlay[0], b: wantsToPlay[1], turn: "white", status: "white is up" });
-            wantsToPlay = []; 
-            tempRooms++;  
-            gameRooms[gameRoom] = new Chess();
-            gameRoomsData[gameRoom] = {
-              status: "white is up",
-              turn: "white",
-              plrs: { w: wantsToPlay[0], b: wantsToPlay[1] }
-            };
+          if(usersInQue.length > 1) {
+           
+            io.sockets.in(thisRoom).emit('ENTER_ROOM', { 
+              room: gameRoom
+            }); 
+            io.sockets.in(thisRoom).emit('NEW_MSG', { 
+              message: `${usersInQue[0]} vs ${usersInQue[1]}`, 
+              user: socket.id, 
+              color: "black",
+            });   
+            io.sockets.in(thisRoom).emit('PLRS', { 
+              w: usersInQue[0], 
+              b: usersInQue[1], 
+              turn: "white", 
+              status: "white is up" 
+            });
+
+            usersInQue = []; 
+            tempRoomName++;  
+
+            rooms[gameRoom] = new Instance(
+              new Chess,
+              "white is up",
+              "white",
+              { w: usersInQue[0], b: usersInQue[1] }
+            );
+
           } else {
-            io.sockets.in(thisRoom).emit('NEW_MSG', { message: `${wantsToPlay[0]} awaits a partner`, user: socket.id }); 
+            io.sockets.in(thisRoom).emit('NEW_MSG', { 
+              message: `${usersInQue[0]} awaits a partner`, 
+              user: socket.id,
+              color: "white",  
+              }); 
+
           }
       }
     });
     
-    socket.on('MAKE_MOVE', (data) => {
-       let validMoves = gameRooms[thisRoom].moves();
+  socket.on('MAKE_MOVE', (data) => { // hantera om den som trycker på "move" INTE gör ett drag
 
-      let validMovesLen = validMoves.length;
-       
-      const randMinMax = (min, max) => Math.floor((Math.random() * Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
-      let rV = randMinMax(0, validMovesLen);
-      let move = gameRooms[thisRoom].move(validMoves[rV]); 
+      rooms[thisRoom].game.load(data.fen);
+      
+      rooms[thisRoom].game.turn();
 
-      gameRooms[thisRoom].turn();
+      let thisPlr = rooms[thisRoom].turn === "white"?  
+        "black"
+        :
+        "white";
+
+      rooms[thisRoom].turn = thisPlr;
      
-      if (gameRooms[thisRoom].in_checkmate() === true) {
-        gameRoomsData[thisRoom].status = "CHECKMATE!";
-      } else if (gameRooms[thisRoom].in_draw() === true) {
-        gameRoomsData[thisRoom].status = 'DRAW!';
+      if (rooms[thisRoom].game.in_checkmate() === true) {
+        rooms[thisRoom].status = "CHECKMATE!";
+
+      } else if (rooms[thisRoom].game.in_draw() === true) {
+        rooms[thisRoom].status = 'DRAW!';
+
+      } else if (rooms[thisRoom].game.in_check() === true) {
+          rooms[thisRoom].status = 'CHECK!';    
+    
       } else {
-        gameRoomsData[thisRoom].turn === "white"? gameRoomsData[thisRoom].turn = "black": gameRoomsData[thisRoom].turn = "white";
-        gameRoomsData[thisRoom].status = `${gameRoomsData[thisRoom].turn} is up!`;
-        if (gameRooms[thisRoom].in_check() === true) {
-          gameRoomsData[thisRoom].status = 'CHECK!';        
-        }
+
+        rooms[thisRoom].status = `${rooms[thisRoom].turn} is up!`;
+
       }
 
-      io.sockets.in(thisRoom).emit('CHESS_ACTION', { turn: gameRoomsData[thisRoom].turn, board: gameRooms[thisRoom].ascii(), status: gameRoomsData[thisRoom].status }); 
- 
+       io.sockets.in(thisRoom).emit('CHESS_ACTION', { 
+         turn: rooms[thisRoom].turn, 
+         board: rooms[thisRoom].game.ascii(), 
+         status: rooms[thisRoom].status,
+         fen: rooms[thisRoom].game.fen()
+       }); 
+
     });
 
     socket.on('MSG_SEND', (msg) => {
-      io.sockets.in(thisRoom).emit('NEW_MSG', { message: msg, user: socket.id });   
+      io.sockets.in(thisRoom).emit('NEW_MSG', { 
+        message: msg, 
+        user: socket.user 
+      });   
     });
 
   setInterval(() => {
-	socket.emit('MOCKDATA_SEEK', mockSeekUsers(30));
-  }, 1500);
+	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
+  }, 1000);
 });
+
 
