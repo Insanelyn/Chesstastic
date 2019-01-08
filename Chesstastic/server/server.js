@@ -13,12 +13,14 @@ const mongoose = require('mongoose');
 const randomFullname = require('random-fullName');
 const Chess = require('chess.js').Chess;
 let { Instance, que } = require('./datastruct.js');
-let {   trylogin,
+let { 
+  trylogin,
   updateHistory,
   findByUsername,
   findById,
   findAllUsers,
-  createUser } = require('./controllers.js');
+  createUser 
+} = require('./controllers.js');
 
 // ---------------------------------------------------------------------------------------
 // helpers (mock) ------------------------------------------------------------------------
@@ -72,7 +74,6 @@ app.get("/", (req, res) => {
 });
 
 
-createUser({ username: "test1232", password: "test1232" });
 // ---------------------------------------------------------------------------------------
 // socket.io -----------------------------------------------------------------------------
 const io = require("socket.io")(server);
@@ -168,7 +169,3 @@ io.on('connection', (socket) => {
 	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
   }, 1000);
 });
-
-
-
-

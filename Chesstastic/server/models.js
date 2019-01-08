@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 mongoose.connect('mongodb://localhost/chesstastic', { useNewUrlParser: true, autoIndex: false } , function(error) {
   if(error) {
     throw error;
@@ -8,7 +7,6 @@ mongoose.connect('mongodb://localhost/chesstastic', { useNewUrlParser: true, aut
     console.log('Successfully connected');
   } 
 });
-
 
 const Schema = mongoose.Schema;
 

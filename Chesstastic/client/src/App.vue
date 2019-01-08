@@ -4,7 +4,6 @@
 
     <TheHeader />
     <router-view></router-view>
-    <ingameBox />
 
   </div>
 
@@ -14,16 +13,13 @@
 
 import TheHeader from './allpages/TheHeader.vue'
 
-import ingameBox from './game/components/ingameBox.vue'
 
 
 export default {
   name: 'app',
   components: {
 
-    TheChessboard,
-    TheHeader,
-    ingameBox
+    TheHeader
   }
 }
 </script>
@@ -35,4 +31,3 @@ export default {
   margin:50px;
 }
 </style>
-
