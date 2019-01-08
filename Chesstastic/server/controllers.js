@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const { User } = require('./models.js');
-
+const sha1 = require('sha1')
 
 const saltRounds = 10;
 
+function encrypt_pw(pw) {
+  return new Promise((resolve, reject) => {
+    const hash = sha1(pw);
+    resolve(hash)
+  })
+}
 
 function createUser(newUser) {
   
@@ -12,8 +17,7 @@ function createUser(newUser) {
   const regExPassword = /^[a-zA-Z0-9]{7,15}/;
 
   if(regExUsername.test(newUser.username) && regExPassword.test(newUser.password)) {
-  
-      bcrypt.hash(newUser.password, saltRounds, (err, hash) => {
+      encrypt_pw(newUser.password, (err, hash) => {
         const currentDate = new Date();
         const user = new User({
           username: newUser.username,
@@ -28,7 +32,7 @@ function createUser(newUser) {
           return true;
         });
 
-      }) 
+      })
     } else {
       console.log("not valid password or username"); // mess till klient... valid tecken
       return false;  
