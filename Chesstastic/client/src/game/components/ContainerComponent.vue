@@ -3,7 +3,11 @@
     <div class="container-fluid">
         <ChatComponent />
         <chessboard class="board" :fen="currentFen" @onMove="showInfo" />
-        <ingameBox />
+
+        <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
+        <div id="movesWrapper">
+        <div v-for="(item, i) in this.historyOfMoves" v-bind:key="i">{{i.move}}</div>
+        </div>
     </div>
 
 </template>
@@ -41,7 +45,16 @@
                 turn: "",
                 status: "",
                 time: 0,
-                historyOfMoves: [],
+                historyOfMoves: [
+                    {
+                        user: "player1",
+                        move: "d5"
+                    }, 
+                    {
+                        user: "player2",
+                        move: "g3"
+                    }
+                    ],
                 positionInfo: null,
                 currentFen: "",
                 oldFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -87,6 +100,7 @@
             });
         },
         methods: {
+            
             sendMessage(e) {
                 e.preventDefault();
                 socket.emit('MSG_SEND', this.message);
@@ -110,6 +124,7 @@
                 } else if(this.turn !== this.color) {
                     alert("By all means, move around pieces. But this move doesn't count.");
                 }
+                
             },
             showInfo(data) {
                 if(data && this.turn === this.color) {
@@ -119,7 +134,12 @@
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
                     this.positionInfo = null;
-                }
+                };
+
+                // denna kommer köras 
+                this.historyOfMoves.push({ user: "player1 or 2", move: Math.floor(Math.random() * Math.floor(100))});
+                console.log(this.historyOfMoves)
+                
             },
             loadFen(fen) {
                 this.currentFen = fen;
@@ -134,6 +154,7 @@
 <style scoped>
 
     .container-fluid {
+        width: 50%;
         margin-top: 50px;
         display: flex;
         justify-content: space-evenly;
@@ -145,4 +166,9 @@
         width: 600px;
     }
 
+    #movesWrapper {
+        background-color: grey;
+        width: 600px;
+        height: 600px;
+    }
 </style>
