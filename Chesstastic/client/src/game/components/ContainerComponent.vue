@@ -3,11 +3,7 @@
     <div class="container-fluid">
         <ChatComponent />
         <chessboard class="board" :fen="currentFen" @onMove="showInfo" />
-
         <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
-        <div id="movesWrapper">
-        <div v-for="(item, i) in this.historyOfMoves" v-bind:key="i">{{i.move}}</div>
-        </div>
     </div>
 
 </template>
@@ -68,6 +64,7 @@
                 this.userData = rawData;
             });
             socket.on('NEW_MSG', (data) => {
+
                 if(!this.color) {
                     this.color = data.color;
                 }
@@ -115,6 +112,7 @@
             switchRoom() {
                 this.msgs = [];
                 socket.emit('SWITCH_ROOM', "PLAY");
+
             },
             makeMove() {
                 if(this.room !== 'NO ROOM' && this.turn === this.color) {
@@ -124,6 +122,7 @@
                 } else if(this.turn !== this.color) {
                     alert("By all means, move around pieces. But this move doesn't count.");
                 }
+
                 
             },
             showInfo(data) {
@@ -136,9 +135,8 @@
                     this.positionInfo = null;
                 };
 
-                // denna kommer köras 
+
                 this.historyOfMoves.push({ user: "player1 or 2", move: Math.floor(Math.random() * Math.floor(100))});
-                console.log(this.historyOfMoves)
                 
             },
             loadFen(fen) {
@@ -166,9 +164,4 @@
         width: 600px;
     }
 
-    #movesWrapper {
-        background-color: grey;
-        width: 600px;
-        height: 600px;
-    }
 </style>

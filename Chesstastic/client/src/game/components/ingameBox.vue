@@ -26,7 +26,7 @@
             <div id="previousMovesWrapper">
                 <div class="movesParagraphTwo">PL1 moves</div>
                 <div class="movesParagraphTwo">PL2 moves</div>
-                <div class="movesParagraph" v-for="item in this.historyOfMoves" v-bind:key="item">{{item.move}}</div>
+                <div class="movesParagraph" v-for="(item, i) in this.historyOfMoves" v-bind:key="i">{{item.move}}</div>
             </div>
             <!----
             ---->
@@ -60,7 +60,6 @@ export default {
 
     data() {
         return {
-            prevMove: "prevMoveNumber",
             player: "playerOne",
             opponent: "playerTwo",
             gameState: true
