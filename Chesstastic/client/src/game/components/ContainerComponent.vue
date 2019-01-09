@@ -10,9 +10,11 @@
                 <button @click="makeMove">Play</button>
             </div>
             <div class="col-lg-3">
-                <ingameBox />
+                
+        <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -55,7 +57,16 @@
                 turn: "",
                 status: "",
                 time: 0,
-                historyOfMoves: [],
+                historyOfMoves: [
+                    {
+                        user: "player1",
+                        move: "d5"
+                    }, 
+                    {
+                        user: "player2",
+                        move: "g3"
+                    }
+                    ],
                 positionInfo: null,
                 currentFen: "",
                 oldFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -105,6 +116,7 @@
             });
         },
         methods: {
+            
             sendMessage(e) {
                 e.preventDefault();
                 this.socket.emit('MSG_SEND', this.message);
@@ -128,6 +140,8 @@
                 } else if(this.turn !== this.color) {
                     alert("By all means, move around pieces. But this move doesn't count.");
                 }
+
+                
             },
             showInfo(data) {
                 if(data && this.turn === this.color) {
@@ -138,7 +152,11 @@
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
                     this.positionInfo = null;
-                }
+                };
+
+
+                this.historyOfMoves.push({ user: "player1 or 2", move: Math.floor(Math.random() * Math.floor(100))});
+                
             },
             loadFen(fen) {
                 this.currentFen = fen;
