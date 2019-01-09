@@ -1,9 +1,18 @@
 <template>
 
     <div class="container-fluid">
-        <ChatComponent />
-        <chessboard class="board" :fen="currentFen" @onMove="showInfo" />
-        <ingameBox />
+        <div class="row">
+            <div class="col-lg-3">
+                <ChatComponent v-bind:socket="socket"/>
+            </div>
+            <div class="col-lg-6">
+                <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
+                <button @click="makeMove">Play</button>
+            </div>
+            <div class="col-lg-3">
+                <ingameBox />
+            </div>
+        </div>
     </div>
 
 </template>
@@ -18,7 +27,14 @@
 
     import io from 'socket.io-client';
 
-    const socket = io.connect('http://localhost:5000');
+   // const socket =
+
+//
+//  const board = document.querySelector(".cg-board-wrap");
+//  board.setAttribute('style', 'width: 600px');
+
+/*  const board = document.getElementsByClassName("cg-board-wrap");
+    board.setAttribute('style', 'width: 600px');*/
 
     export default {
         name: 'Container',
@@ -30,8 +46,6 @@
         data () {
             return {
                 userData: [],
-                msgs: [],
-                message: '',
                 room: 'NOT PLAYING',
                 board: "",
                 plrW: "",
@@ -46,15 +60,18 @@
                 currentFen: "",
                 oldFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
                 loginUsername: "",
-                loginPassword: ""
+                loginPassword: "",
+                socket: io.connect('http://localhost:5000')
             }
         },
         mounted () {
-            socket.on('MOCKDATA_SEEK', (data) => {
+            this.switchRoom()
+            this.socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
                 this.userData = rawData;
             });
-            socket.on('NEW_MSG', (data) => {
+
+            this.socket.on('NEW_MSG', (data) => {
                 if(!this.color) {
                     this.color = data.color;
                 }
@@ -65,10 +82,11 @@
                     this.opponent = "black";
                 }
             });
-            socket.on('ENTER_ROOM', (data) => {
+
+            this.socket.on('ENTER_ROOM', (data) => {
                 this.room = `PLAYS at ${data.room}`;
             });
-            socket.on('CHESS_ACTION', (data) => {
+            this.socket.on('CHESS_ACTION', (data) => {
                 this.board = data.board;
                 this.status = data.status;
                 this.turn = data.turn;
@@ -76,20 +94,20 @@
                 this.loadFen(data.fen);
                 this.oldFen = data.fen;
             });
-            socket.on('PLRS', (plrs) => {
+            this.socket.on('PLRS', (plrs) => {
                 this.plrW = plrs.w;
                 this.plrB = plrs.b;
                 this.turn = plrs.turn;
                 this.status = plrs.status;
             });
-            socket.on('CHEAT_DETECTED', (data) => {
+            this.socket.on('CHEAT_DETECTED', (data) => {
                 alert("CHEAT!!!");
             });
         },
         methods: {
             sendMessage(e) {
                 e.preventDefault();
-                socket.emit('MSG_SEND', this.message);
+                this.socket.emit('MSG_SEND', this.message);
                 this.message = '';
             },
             login(e) {
@@ -100,11 +118,11 @@
             },
             switchRoom() {
                 this.msgs = [];
-                socket.emit('SWITCH_ROOM', "PLAY");
+                this.socket.emit('SWITCH_ROOM', "PLAY");
             },
             makeMove() {
                 if(this.room !== 'NO ROOM' && this.turn === this.color) {
-                    socket.emit('MAKE_MOVE', { type: "normal", color: this.color, fen: this.currentFen });
+                    this.socket.emit('MAKE_MOVE', { type: "normal", color: this.color, fen: this.currentFen });
                 } else if(this.room === 'NO ROOM') {
                     alert("GAME NOT ACTIVE!");
                 } else if(this.turn !== this.color) {
@@ -115,6 +133,7 @@
                 if(data && this.turn === this.color) {
                     this.positionInfo = data;
                     this.currentFen = data.fen;
+
                 } else {
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
@@ -134,15 +153,19 @@
 <style scoped>
 
     .container-fluid {
-        margin-top: 50px;
+        margin-top: 100px;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
+        align-content: center;
         height: 100vh;
         background-color: white;
+        margin-right: 200px;
     }
 
-    .board {
+    .cg-board-wrap {
+        margin-top: 100px;
         width: 600px;
+        height: 600px;
     }
 
 </style>
