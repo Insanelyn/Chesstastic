@@ -22,39 +22,11 @@
             <!----
             write code in previousMoves() to render previous moves here
             ---->
-            <div id="previousMovesWrapper">
 
-                <div>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">1</p>
-                    <p id="movesParagraph">d4</p>
-                    <p id="movesParagraph">f2</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">2</p>
-                    <p id="movesParagraph">a3</p>
-                    <p id="movesParagraph">c2</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">3</p>
-                    <p id="movesParagraph">d3</p>
-                    <p id="movesParagraph">d4</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">4</p>
-                    <p id="movesParagraph">b2</p>
-                    <p id="movesParagraph">c6</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">5</p>
-                    <p id="movesParagraph">e7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">6</p>
-                    <p id="movesParagraph">e7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">8</p>
-                    <p id="movesParagraph">e7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">9</p>
-                    <p id="movesParagraph">e7</p>
-                    <p id="movesParagraph">e7</p>
-                    <p style="width: 10%; display: inline-block; margin-bottom: 0; text-align: center;">10</p>
-                    <p id="movesParagraph">e7</p>
-                </div>
+            <div id="previousMovesWrapper">
+                <div class="movesParagraphTwo">PL1 moves</div>
+                <div class="movesParagraphTwo">PL2 moves</div>
+                <div class="movesParagraph" v-for="(item, i) in this.historyOfMoves" v-bind:key="i">{{item.move}}</div>
             </div>
             <!----
             ---->
@@ -84,26 +56,27 @@
 <script>
 export default {
 
+    props:['historyOfMoves'],
+
     data() {
         return {
-            prevMove: "prevMoveNumber",
             player: "playerOne",
             opponent: "playerTwo",
             gameState: true
         }
-
     },
+
     created() {
 
     },
 
     methods: {
-        giveUp: function (event) {
+        giveUp: function (e) {
             if(this.gameState === true) {
                 this.gameState = false
             }
-        },
-        newGame: function (event) {
+        },  
+        newGame: function (e) {
             if(this.gameState === false) {
                 this.gameState = true;
             }
@@ -230,13 +203,17 @@ h4 {
     overflow: scroll;
 }
 
-#movesParagraph {
+.movesParagraph, .movesParagraphTwo {
     margin-bottom: 0;
     border: 1px solid rgba(40, 40, 40, 0.1);
     background: rgba(56,147,232,.1);
     padding: 3px;
     display: inline-block;
-    width: 45%;
+    width: 50%;
+}
+.movesParagraphTwo {
+
+    background: rgba(255, 255, 255, 0.1);
 }
 
 </style>
