@@ -4,9 +4,18 @@
         <div class="chatBox">
             <h1>Chat</h1>
             <form @submit.prevent="sendMessage">
-                <input v-model="message" id="messageInput" autocomplete="off" placeholder="Write your message here">
-                <button id="messageButton">Send</button>
+                <div class="ui input">
+                    <input
+                            v-model="message"
+                            id="messageInput"
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Write message here..."
+                    >
+                    <button class="ui button" id="messageButton">Send</button>
+                </div>
                 <div id="messageBox" v-for="(chatMessage,i) in messages" :key="i">
+                    <p>User: {{ chatMessage.user }}:</p>
                     <p>Message: {{ chatMessage.message }}</p>
                 </div>
             </form>
@@ -35,18 +44,8 @@
         },
         mounted() {
 
-            this.socket.on('NEW_MSG', (data) => {
-             /*
-                if(!this.color) {
-                    this.color = data.color;
-                }
-                this.msgs.push(data);
-                if(this.color === "black") {
-                    this.opponent = "white";
-                } else {
-                    this.opponent = "black";
-                }
-                */
+             this.socket.on('NEW_MSG', (data) => {
+                 console.log(data);
              this.messages.push(data)
             });
         }
@@ -64,6 +63,7 @@
         background-color: dimgrey;
         opacity: 0.7;
         border-radius: 5px;
+        overflow: auto;
     }
 
     h1 {
@@ -76,11 +76,18 @@
     #messageBox {
         height: auto;
         background-color: #c9c0cf;
-        margin: 5px 15px 5px 15px;
+        margin: 15px 15px 5px 15px;
+        border-radius: 5px;
     }
 
     #messageInput {
-        margin: 5px 5px 5px 15px;
+        margin: 5px 15px 5px 15px;
+        min-width: 60px;
+    }
+
+    #messageButton {
+        height: 37px;
+        margin-top: 6px;
     }
 
 </style>
