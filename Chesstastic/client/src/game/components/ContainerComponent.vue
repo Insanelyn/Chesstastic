@@ -5,11 +5,10 @@
             <div class="col-lg-3">
                 <ChatComponent v-bind:socket="socket"/>
             </div>
-            <div class="col-lg-6">                
-                <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
-                <button @click="makeMove">Play</button>
+            <div class="col-lg-6">    
                 <div>{{status}}, you are {{color}}</div>
-                <div> You are playing in room {{ room }}</div>
+                <div> You are playing in room {{ room }}</div>             
+                <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
             </div>
             <div class="col-lg-3">
                 <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
@@ -133,15 +132,16 @@
                 } else if(this.turn !== this.color) {
                     alert("By all means, move around pieces. But this move doesn't count.");
                 }
-
-                
             },
+
             showInfo(data) {
                 if(data && this.turn === this.color) {
                     this.positionInfo = data;
-                    this.currentFen = data.fen;
-
-                    data.history.length ? this.temp = data.history.flat()[0] : null;
+                    this.currentFen = data.fen; 
+                    if (data.history.length ) {
+                        this.temp = data.history[0]
+                        this.makeMove()
+                    }
                 } else {
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
