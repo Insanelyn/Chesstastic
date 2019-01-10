@@ -5,7 +5,7 @@
             <div class="col-lg-3">
                 <ChatComponent v-bind:socket="socket"/>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6">                
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
                 <button @click="makeMove">Play</button>
                 <div>{{status}}, you are {{color}}</div>
@@ -27,7 +27,7 @@
     import ingameBox from './ingameBox.vue'
     import { chessboard } from 'vue-chessboard'
     import 'vue-chessboard/dist/vue-chessboard.css'
-
+    import SuiVue from 'semantic-ui-vue';
     import io from 'socket.io-client';
 
    // const socket =
