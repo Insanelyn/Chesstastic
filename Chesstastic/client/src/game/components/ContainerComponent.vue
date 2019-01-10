@@ -9,10 +9,10 @@
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
                 <button @click="makeMove">Play</button>
                 <div>{{status}}, you are {{color}}</div>
+                <div> You are playing in room {{ room }}</div>
             </div>
             <div class="col-lg-3">
-                
-        <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
+                <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
             </div>
         </div>
 
