@@ -48,7 +48,6 @@
                 }
                 */
              this.messages.push(data)
-console.log(data)
             });
         }
     }

@@ -154,7 +154,8 @@ io.on('connection', (socket) => {
          turn: rooms[thisRoom].turn, 
          board: rooms[thisRoom].game.ascii(), 
          status: rooms[thisRoom].status,
-         fen: rooms[thisRoom].game.fen()
+         fen: rooms[thisRoom].game.fen(),
+         move: data.move
        }); 
     });
 

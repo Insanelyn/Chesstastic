@@ -8,10 +8,11 @@
             <div class="col-lg-6">
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
                 <button @click="makeMove">Play</button>
+                <div>{{status}}, you are {{color}}</div>
+                <div> You are playing in room {{ room }}</div>
             </div>
             <div class="col-lg-3">
-                
-        <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
+                <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
             </div>
         </div>
 
@@ -57,16 +58,8 @@
                 turn: "",
                 status: "",
                 time: 0,
-                historyOfMoves: [
-                    {
-                        user: "player1",
-                        move: "d5"
-                    }, 
-                    {
-                        user: "player2",
-                        move: "g3"
-                    }
-                    ],
+                temp: [],
+                historyOfMoves: [],
                 positionInfo: null,
                 currentFen: "",
                 oldFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -76,7 +69,7 @@
             }
         },
         mounted () {
-            this.switchRoom()
+            this.switchRoom()               
             this.socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
                 this.userData = rawData;
@@ -134,7 +127,7 @@
             },
             makeMove() {
                 if(this.room !== 'NO ROOM' && this.turn === this.color) {
-                    this.socket.emit('MAKE_MOVE', { type: "normal", color: this.color, fen: this.currentFen });
+                    this.socket.emit('MAKE_MOVE', { type: "normal", color: this.color, fen: this.currentFen, move: this.temp });
                 } else if(this.room === 'NO ROOM') {
                     alert("GAME NOT ACTIVE!");
                 } else if(this.turn !== this.color) {
@@ -148,14 +141,13 @@
                     this.positionInfo = data;
                     this.currentFen = data.fen;
 
+                    data.history.length ? this.temp = data.history.flat()[0] : null;
                 } else {
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
                     this.positionInfo = null;
                 };
 
-
-                this.historyOfMoves.push({ user: "player1 or 2", move: Math.floor(Math.random() * Math.floor(100))});
                 
             },
             loadFen(fen) {
