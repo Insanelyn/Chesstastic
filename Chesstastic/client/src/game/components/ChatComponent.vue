@@ -45,8 +45,7 @@
         mounted() {
 
              this.socket.on('NEW_MSG', (data) => {
-                 console.log(data);
-             this.messages.push(data)
+             this.messages.unshift(data)
             });
         }
     }
