@@ -71,12 +71,12 @@ export default {
     },
 
     methods: {
-        giveUp: function (e) {
+        giveUp: function () {
             if(this.gameState === true) {
                 this.gameState = false
             }
         },  
-        newGame: function (e) {
+        newGame: function () {
             if(this.gameState === false) {
                 this.gameState = true;
             }
