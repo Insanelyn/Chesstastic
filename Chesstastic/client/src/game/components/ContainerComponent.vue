@@ -33,7 +33,7 @@
                                         <label>Password</label>
                                         <input v-model="loginPassword" placeholder="Password" type="password">
                                     </sui-form-field>
-                                    <sui-button type="submit">Login</sui-button>
+                                    <sui-button type="submit" class="loginBtn">Login</sui-button>
                                     <sui-form-field>
                                         <sui-accordion>
                                             <a is="sui-accordion-title">
@@ -54,8 +54,8 @@
                                                         <label>Confirm password</label>
                                                         <input v-model="loginConfirmPassword" placeholder="Confirm password" type="password">
                                                     </sui-form-field>
+                                                    <p>{{confirmationOfAccount}}</p>
                                                     <sui-button type="submit">Create user</sui-button>
-
                                                 </sui-form>
                                             </sui-accordion-content>
                                         </sui-accordion>
@@ -127,7 +127,8 @@
                 loginCreatePassword: "",
                 loginConfirmPassword: "",
                 socket: io.connect('http://localhost:5000'),
-                open: false
+                open: false,
+                confirmationOfAccount: ""
             }
         },
         mounted () {
@@ -174,6 +175,7 @@
                 this.user=data.user;
                 this.statistics=data.statistics;
             });
+
         },
         methods: {
 
@@ -201,14 +203,20 @@
                 if(regExUsername.test(this.loginCreateUsername) && regExPassword.test(this.loginCreatePassword)) {
 
                     if (this.loginCreatePassword === this.loginConfirmPassword) {
-                        console.log("matching!");
+                        this.confirmationOfAccount = "Registration of account succeeded";
+                    } else  {
+                            this.confirmationOfAccount = "Registration of account failed";
+                        }
 
+                        console.log("matching!");
                         // this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     }
-                }
+
                 this.loginCreateUsername = '';
                 this.loginCreatePassword = '';
                 this.loginConfirmPassword = '';
+                }
+
             },
 
             switchRoom() {
@@ -240,13 +248,10 @@
                     this.positionInfo = null;
                 };
 
-                
             },
             loadFen(fen) {
                 this.currentFen = fen;
             }
-        }
-
 
 
     }
@@ -273,6 +278,10 @@
         padding: 15px;
         width: 350px;
         margin-left: 20px;
+    }
+
+    .loginBtn {
+        margin-bottom: 20px;
     }
 
 </style>
