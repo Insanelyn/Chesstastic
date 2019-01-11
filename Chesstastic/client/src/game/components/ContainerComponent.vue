@@ -3,11 +3,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
+                <div  class="playerInfo">
+                    <h3>User: {{loginUsername}}</h3>
+                    <h3>Your color: {{color}}</h3>
+                    <h3>Game status: {{status}}</h3>
+                </div>
                 <ChatComponent v-bind:socket="socket"/>
             </div>
-            <div class="col-lg-6">    
-                <div>{{status}}, you are {{color}}</div>
-                <div> You are playing in room {{ room }}</div>             
+            <div class="col-lg-6">
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
             </div>
             <div class="col-lg-3">
@@ -164,9 +167,6 @@
 
     .container-fluid {
         margin-top: 100px;
-        display: flex;
-        justify-content: space-around;
-        align-content: center;
         height: 100vh;
         background-color: white;
         margin-right: 200px;
@@ -176,6 +176,14 @@
         margin-top: 100px;
         width: 600px;
         height: 600px;
+    }
+
+    .playerInfo {
+        background-color: lightgrey;
+        border-radius: 5px;
+        padding: 15px;
+        width: 350px;
+        margin-left: 20px;
     }
 
 </style>
