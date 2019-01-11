@@ -29,7 +29,6 @@
     import ingameBox from './ingameBox.vue'
     import { chessboard } from 'vue-chessboard'
     import 'vue-chessboard/dist/vue-chessboard.css'
-    import SuiVue from 'semantic-ui-vue';
     import io from 'socket.io-client';
 
    // const socket =
@@ -106,7 +105,7 @@
                 this.turn = plrs.turn;
                 this.status = plrs.status;
             });
-            this.socket.on('CHEAT_DETECTED', (data) => {
+            this.socket.on('CHEAT_DETECTED', () => {
                 alert("CHEAT!!!");
             });
         },
@@ -149,7 +148,7 @@
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
                     this.positionInfo = null;
-                };
+                }
 
                 
             },
