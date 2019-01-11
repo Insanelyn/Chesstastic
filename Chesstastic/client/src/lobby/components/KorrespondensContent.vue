@@ -1,5 +1,7 @@
 <template>
-
+<div>
+    This is some content for the Korrespondens
+</div>
 </template>
 
 <script>
@@ -9,5 +11,10 @@
 </script>
 
 <style scoped>
+
+    div {
+        text-align: center;
+        margin-top: 25px;
+    }
 
 </style>

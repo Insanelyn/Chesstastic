@@ -1,7 +1,7 @@
 <template>
-<div>
-    <p>gå bananas</p>
-</div>
+    <div>
+        this is also some content for the upcoming pages.
+    </div>
 </template>
 
 <script>
@@ -12,8 +12,10 @@
 </script>
 
 <style scoped>
-    p {
-        background-color: red;
+
+    div {
+        text-align: center;
+        margin-top: 25px;
     }
 
 
