@@ -63,6 +63,7 @@
         opacity: 0.7;
         border-radius: 5px;
         overflow: auto;
+        padding: 20px;
     }
 
     h1 {
