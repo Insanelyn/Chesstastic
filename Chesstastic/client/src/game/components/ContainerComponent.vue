@@ -54,7 +54,7 @@
                                                         <label>Confirm password</label>
                                                         <input v-model="loginConfirmPassword" placeholder="Confirm password" type="password">
                                                     </sui-form-field>
-                                                    <p>{{confirmationOfAccount}}</p>
+                                                    <p class="confirmationText">{{confirmationOfAccount}}</p>
                                                     <sui-button type="submit">Create user</sui-button>
                                                 </sui-form>
                                             </sui-accordion-content>
@@ -282,6 +282,11 @@
 
     .loginBtn {
         margin-bottom: 20px;
+    }
+
+    .confirmationText {
+        color: darkgrey;
+        font-size: large;
     }
 
 </style>
