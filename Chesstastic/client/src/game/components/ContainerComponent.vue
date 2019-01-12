@@ -1,8 +1,8 @@
 <template>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3">
+    <div class="container-fluid chessbackground">
+        <div class="containerWrapper">
+            <div>
                 <div  class="playerInfo">
                     <h3>User: {{loginUsername}}</h3>
                     <h3>Your color: {{color}}</h3>
@@ -10,7 +10,8 @@
                 </div>
                 <ChatComponent v-bind:socket="socket"/>
             </div>
-            <div class="col-lg-6">
+            
+            <div id="chessboard">
                 <div>
                     <sui-button @click.native="toggle">Login</sui-button>
                     <sui-modal v-model="open">
@@ -67,7 +68,7 @@
                 </div>
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
             </div>
-            <div class="col-lg-3">
+            <div>
                 <ingameBox v-bind:historyOfMoves="this.historyOfMoves"/>
             </div>
         </div>
@@ -82,8 +83,6 @@
     import ChatComponent from './ChatComponent.vue'
     import ingameBox from './ingameBox.vue'
     import { chessboard } from 'vue-chessboard'
-    import 'vue-chessboard/dist/vue-chessboard.css'
-    import SuiVue from 'semantic-ui-vue';
     import io from 'socket.io-client';
 
    // const socket =
@@ -167,7 +166,7 @@
                 this.turn = plrs.turn;
                 this.status = plrs.status;
             });
-            this.socket.on('CHEAT_DETECTED', (data) => {
+            this.socket.on('CHEAT_DETECTED', () => {
                 alert("CHEAT!!!");
             });
 
@@ -246,7 +245,7 @@
                     alert("Hey! Wait up!");
                     this.loadFen(this.oldFen);
                     this.positionInfo = null;
-                };
+                }
 
             },
             loadFen(fen) {
@@ -260,24 +259,40 @@
 <style scoped>
 
     .container-fluid {
-        margin-top: 100px;
-        height: 100vh;
-        background-color: white;
-        margin-right: 200px;
     }
 
-    .cg-board-wrap {
-        margin-top: 100px;
-        width: 600px;
-        height: 600px;
+    .chessbackground {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        background: url('../../assets/images/chessbackground.jpg');
+    }
+
+    .containerWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (max-width: 1200px) {
+        .containerWrapper {
+            flex-direction: column;
+        }
     }
 
     .playerInfo {
-        background-color: lightgrey;
+        background-color: rgba(211,211,211, 0.8);
         border-radius: 5px;
         padding: 15px;
         width: 350px;
-        margin-left: 20px;
+        margin-left: 15px;
+    }
+
+    #chessboard {
+        width: 560px;
+        height: 560px;
+        padding: 20px;
+        background: url('../../assets/images/chesswoodplate.jpg');
+        border-radius: 10px;
+        color: white;
     }
 
     .loginBtn {
