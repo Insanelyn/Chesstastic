@@ -4,16 +4,7 @@
         <div class="containerWrapper">
             <div>
                 <div  class="playerInfo">
-                    <h3>User: {{loginUsername}}</h3>
-                    <h3>Your color: {{color}}</h3>
-                    <h3>Game status: {{status}}</h3>
-                </div>
-                <ChatComponent v-bind:socket="socket"/>
-            </div>
-            
-            <div id="chessboard">
-                <div>
-                    <sui-button @click.native="toggle">Login</sui-button>
+                    <sui-button @click.native="toggle" id="loginBtn">Login</sui-button>
                     <sui-modal v-model="open">
                         <sui-modal-header>
                             <sui-modal-actions>
@@ -34,7 +25,7 @@
                                         <label>Password</label>
                                         <input v-model="loginPassword" placeholder="Password" type="password">
                                     </sui-form-field>
-                                    <sui-button type="submit" class="loginBtn">Login</sui-button>
+                                    <sui-button type="submit">Login</sui-button>
                                     <sui-form-field>
                                         <sui-accordion>
                                             <a is="sui-accordion-title">
@@ -55,7 +46,7 @@
                                                         <label>Confirm password</label>
                                                         <input v-model="loginConfirmPassword" placeholder="Confirm password" type="password">
                                                     </sui-form-field>
-                                                    <p>{{confirmationOfAccount}}</p>
+                                                    <p class="confirmationText">{{confirmationOfAccount}}</p>
                                                     <sui-button type="submit">Create user</sui-button>
                                                 </sui-form>
                                             </sui-accordion-content>
@@ -65,7 +56,14 @@
                             </sui-segment>
                         </sui-modal-content>
                     </sui-modal>
+                    <h3>User: {{loginUsername}}</h3>
+                    <h3>Your color: {{color}}</h3>
+                    <h3>Game status: {{status}}</h3>
                 </div>
+                <ChatComponent v-bind:socket="socket"/>
+            </div>
+            
+            <div id="chessboard">
                 <chessboard class="cg-board-wrap" :fen="currentFen" @onMove="showInfo" />
             </div>
             <div>
@@ -258,9 +256,6 @@
 
 <style scoped>
 
-    .container-fluid {
-    }
-
     .chessbackground {
         padding-top: 50px;
         padding-bottom: 50px;
@@ -295,8 +290,19 @@
         color: white;
     }
 
-    .loginBtn {
-        margin-bottom: 20px;
+    #loginBtn {
+        background-color: #8CA2AD;
+        color: white;
+        border: 2px solid white;
+        border-radius: 5px;
+        opacity: 0.6;
+        float: right;
+        margin: 0px 25px 40px 0px;
+    }
+
+    .confirmationText {
+        color: darkgrey;
+        font-size: large;
     }
 
 </style>
