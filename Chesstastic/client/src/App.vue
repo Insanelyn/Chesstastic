@@ -4,7 +4,6 @@
 
     <TheHeader />
     <SeekComponentLayout />
-    <router-view />
 
 
   </div>
