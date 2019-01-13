@@ -4,7 +4,7 @@ import SuiVue from 'semantic-ui-vue';
 import 'semantic-ui-css/semantic.min.css';
 
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {},
 	mutations: {},

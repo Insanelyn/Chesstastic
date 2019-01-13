@@ -3,31 +3,29 @@
   <div id="app">
 
     <TheHeader />
-    <router-view></router-view>
+    <SeekComponentLayout />
+    <router-view />
 
   </div>
 
 </template>
 
 <script>
-
-import TheHeader from './allpages/TheHeader.vue'
-
-
-
-export default {
-  name: 'app',
-  components: {
-
-    TheHeader
-  }
-}
+    import TheHeader from './allpages/TheHeader.vue'
+    import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
+    export default {
+        name: 'app',
+        components: {
+            SeekComponentLayout,
+            TheHeader
+        },
+    }
 </script>
 
 <style>
-#temp-seek {
-  font-size: 10px;
-  width: 700px;
-  margin:50px;
-}
+  #temp-seek {
+    font-size: 10px;
+    width: 700px;
+    margin:50px;
+  }
 </style>
