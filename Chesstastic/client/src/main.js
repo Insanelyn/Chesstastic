@@ -6,8 +6,12 @@ import store from '../store/index'
 
 import VueSocketIO from 'vue-socket.io'
 
+Vue.config.productionTip = false;
+Vue.use(VueRouter);
+
+
 Vue.config.productionTip = false
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 Vue.use(new VueSocketIO({
   debug: true,
@@ -18,6 +22,8 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'SOCKET_'
     }
 }));
+
+
 
 new Vue({
   store,

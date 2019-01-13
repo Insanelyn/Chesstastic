@@ -2,9 +2,13 @@
 
   <div id="app">
 
-    <TheChessboard />
     <TheHeader />
+
     <LobbyFilterComponent />
+
+    <SeekComponentLayout />
+    <router-view />
+
 
   </div>
 
@@ -23,12 +27,21 @@ export default {
       LobbyFilterComponent
   }
 }
+    import TheHeader from './allpages/TheHeader.vue'
+    import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
+    export default {
+        name: 'app',
+        components: {
+            SeekComponentLayout,
+            TheHeader
+        },
+    }
 </script>
 
 <style>
-#temp-seek {
-  font-size: 10px;
-  width: 700px;
-  margin:50px;
-}
+  #temp-seek {
+    font-size: 10px;
+    width: 700px;
+    margin:50px;
+  }
 </style>
