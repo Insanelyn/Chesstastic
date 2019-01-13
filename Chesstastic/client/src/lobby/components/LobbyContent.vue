@@ -1,7 +1,10 @@
 <template>
     <div class="table-container">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <table>
+        <router-link tag="a" :to = "{name: 'filter',}">
+<button ><i class="fa fa-sliders-h"></i></button>
+</router-link>
+
         <tr>
             <th class="header"><span class="fas fa-random"> Spelare</span></th>
             <th class="header"><span class="fas fa-angle-down"> Rating</span></th>
@@ -32,8 +35,13 @@
 
 <script>
     export default {
-        name: "LobbyContent"
+        name: "LobbyContent",
+   
+    methods: {
+   
     }
+    }
+    
 </script>
 
 <style scoped>

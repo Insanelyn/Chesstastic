@@ -4,6 +4,7 @@ import SnabbParningContent from '../src/lobby/components/SnabbParningContent'
 import LobbyContent from '../src/lobby/components/LobbyContent'
 import KorrespondensContent from '../src/lobby/components/KorrespondensContent'
 import ContainerComponent from '@/game/components/ContainerComponent'
+import LobbyFilterComponent from '../src/lobby/components/LobbyFilterComponent'
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
         path: 'Container',
         name:'Container',
         component: ContainerComponent
+    },   
+    {
+        path: '/filter',
+        name:'filter',
+        component: LobbyFilterComponent
     },
 
 ];
