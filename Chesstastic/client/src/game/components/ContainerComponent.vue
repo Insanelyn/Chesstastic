@@ -188,7 +188,7 @@
 
             sendLogin(e) {
                 e.preventDefault();
-                //this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
+                this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
                 this.loginUsername = '';
                 this.loginPassword = '';
             },
