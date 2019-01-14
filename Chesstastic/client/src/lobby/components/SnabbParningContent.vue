@@ -1,66 +1,77 @@
 <template>
   <div class="container">
+        <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
+
     <div class="square column-1">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>1+0</h2>
         <h3>Bullet</h3>
-      </router-link>
     </div>
+          </router-link>
+
+      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
 
     <div class="square column-2">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>2+1</h2>
         <h3>Bullet</h3>
-      </router-link>
     </div>
+          </router-link>
 
-    <div class="square column-3">
+
       <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
+    <div class="square column-3">
         <h2>3+0</h2>
         <h3>Blitz</h3>
-      </router-link>
     </div>
+      </router-link>
 
-    <div class="square column-1-row-2">
+
       <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
+   
+    <div class="square column-1-row-2">
         <h2>3+2</h2>
         <h3>Blitz</h3>
-      </router-link>
     </div>
+          </router-link>
+
+      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
 
     <div class="square column-2-row-2">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>5+0</h2>
         <h3>Blitz</h3>
-      </router-link>
     </div>
+          </router-link>
+
+      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
 
     <div class="square column-3-row-2">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>5+3</h2>
         <h3>Blitz</h3>
-      </router-link>
     </div>
+          </router-link>
+
+      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
 
     <div class="square column-1-row-3">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>10+0</h2>
         <h3>Rapid</h3>
-      </router-link>
     </div>
+          </router-link>
+
+
+      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
 
     <div class="square column-2-row-3">
-      <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
         <h2>15+15</h2>
         <h3>Classical</h3>
-      </router-link>
     </div>
+          </router-link>
 
-    <div class="square column-3-row-3">
       <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
+    <div class="square column-3-row-3">
         <h3>Anpassad</h3>
-      </router-link>
     </div>
+          </router-link>
+
   </div>
 </template>
 
