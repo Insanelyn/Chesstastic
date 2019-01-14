@@ -166,6 +166,13 @@ io.on('connection', (socket) => {
       });   
     });
 
+    socket.on('LOGIN_SEND', (login) => {
+        io.sockets.in(thisRoom).emit('LOGIN_SEND', {
+            loginUsername: user,
+            loginPassword: socket.user
+        });
+    });
+
   setInterval(() => {
 	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
   }, 1000);

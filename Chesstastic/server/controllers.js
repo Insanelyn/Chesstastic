@@ -75,11 +75,15 @@ async function updateHistory(username, history) {
 async function tryLogin(username, password) {
 
   const user = await findByUsername(username); 
-  bcrypt.compare(password, user.password, (err, res) => {
-     if(res) console.log("SUCCESS!"); 
-     else console.log("FAIL");
-  });
+  bcrypt.compare(password, user.loginPassword, (err, res) => {
+     if(res) return true;
+     console.log("true")
+     else {
+       //console.log("true")
+       return false;
 
+     }
+  });
 }
 //tryLogin("cmb", "gruffalon");
 //tryLogin("cmb", "gruffalo3safafn");

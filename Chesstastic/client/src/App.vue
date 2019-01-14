@@ -11,7 +11,8 @@
 
 <script>
 
-import TheHeader from './allpages/TheHeader.vue'
+import TheHeader from './allpages/TheHeader.vue';
+import SeekComponentLayout from './lobby/components/SeekComponentLayout';
 
 
 
