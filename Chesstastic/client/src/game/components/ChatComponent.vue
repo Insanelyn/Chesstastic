@@ -53,7 +53,7 @@
 
 <style scoped>
     .container-fluid {
-        background-color: lightskyblue;
+        margin-top: 20px;
     }
 
     .chatBox {

@@ -4,22 +4,25 @@
 
     <TheHeader />
     <SeekComponentLayout />
-    <router-view />
+
 
   </div>
 
 </template>
 
 <script>
-    import TheHeader from './allpages/TheHeader.vue'
-    import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
-    export default {
-        name: 'app',
-        components: {
-            SeekComponentLayout,
-            TheHeader
-        },
-    }
+import TheHeader from './allpages/TheHeader.vue'
+import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
+
+
+export default {
+  name: 'app',
+  components: {
+      TheHeader,
+      SeekComponentLayout
+  }
+}
+    
 </script>
 
 <style>

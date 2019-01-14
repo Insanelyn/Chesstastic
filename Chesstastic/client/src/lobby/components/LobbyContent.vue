@@ -1,12 +1,18 @@
-<template>
+<template>       
+<container>
+<router-link tag="a" :to = "{name: 'filter',}">
+<button class="btn btn-settings pull-right" ><i class="fa fa-sliders-h"></i></button>
+</router-link>
     <div class="table-container">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <table>
+
+
         <tr>
             <th class="header"><span class="fas fa-random"> Spelare</span></th>
             <th class="header"><span class="fas fa-angle-down"> Rating</span></th>
             <th class="header">Tid</th>
             <th class="header">Typ</th>
+            
         </tr>
 
         <tr v-for="(user,i) in userData" :key="i">
@@ -15,8 +21,8 @@
             <td>{{user.time}}</td>
             <td><span class="fas fa-bolt"> {{user.rating}}</span></td>
         </tr>
-    </table>
     </div>
+    </container>
 </template>
 
 <script>
@@ -41,15 +47,21 @@
                 console.log(this.userData);
             });
         }
+   
+ 
     }
+    
 </script>
 
 <style scoped>
+.table-container {
+    width: 65%;
+}
 
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 50%;
+        width: 80%;
         margin-top: 25px;
         margin-left: 379.5px;
     }
@@ -67,6 +79,9 @@
 
     a:hover {
         background-color: darkgray;
+    }
+    .btn-settings{
+
     }
 
 </style>

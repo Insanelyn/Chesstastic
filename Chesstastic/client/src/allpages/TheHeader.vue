@@ -8,66 +8,54 @@
         <div class="nav-list">
             <nav>
                 <ul class="nav">
-                    <li><router-link to="/game">Spela</router-link></li>
+                    <li>Spela</li>
                     <li>Lära sig</li>
                     <li>Titta</li>
                     <li>Gemenskap</li>
                     <li>Verktyg</li>
                 </ul>
             </nav>
-
-
         </div>
         <img class="branding-logo" src="../assets/images/chess_piece_king.png">
     </div>
 </template>
 
 <script>
-
-    import VueRouter from 'vue-router';
     export default {
         data() {
             return {
             }
         },
         created() {
-
         },
     }
 </script>
 
 <style scoped>
     .container-fluid{
-        background-color: lightsalmon;
+        background-color: orange;
         opacity: 0.9;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-
     h1 {
         font-family: "Lucida Calligraphy";
         font-size: 4em;
         margin-left: -25%;
         margin-right: 15%;
-
     }
-
     .branding-logo {
         width: 100px;
         height: 100px;
         float: right;
         margin-left: 420px;
     }
-
-
     li {
         list-style-type: none;
         margin-right: 8px;
     }
-
     li:hover {
         color: grey;
     }
-
 </style>
