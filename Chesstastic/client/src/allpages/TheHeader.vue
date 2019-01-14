@@ -27,43 +27,35 @@
             }
         },
         created() {
-
         },
     }
 </script>
 
 <style scoped>
     .container-fluid{
-        background-color: lightsalmon;
+        background-color: orange;
         opacity: 0.9;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-
     h1 {
         font-family: "Lucida Calligraphy";
         font-size: 4em;
         margin-left: -25%;
         margin-right: 15%;
-
     }
-
     .branding-logo {
         width: 100px;
         height: 100px;
         float: right;
         margin-left: 420px;
     }
-
-
     li {
         list-style-type: none;
         margin-right: 8px;
     }
-
     li:hover {
         color: grey;
     }
-
 </style>
