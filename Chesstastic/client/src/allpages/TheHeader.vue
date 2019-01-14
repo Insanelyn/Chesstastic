@@ -17,15 +17,12 @@
 </template>
 
 <script>
-
-    import VueRouter from 'vue-router';
     export default {
         data() {
             return {
             }
         },
         created() {
-
         },
     }
 </script>
@@ -38,15 +35,12 @@
         align-items: center;
         justify-content: center;
     }
-
     h1 {
         font-family: "Lucida Calligraphy";
         font-size: 4em;
         margin-left: -25%;
         margin-right: 15%;
-
     }
-
     .branding-logo {
         width: 100px;
         height: 100px;
@@ -66,5 +60,4 @@
         background-color: lightgray;
         padding: 5px;
     }
-
 </style>

@@ -212,7 +212,7 @@
                 this.loginCreateUsername = '';
                 this.loginCreatePassword = '';
                 this.loginConfirmPassword = '';
-                }
+                
 
             },
 
@@ -249,7 +249,7 @@
             loadFen(fen) {
                 this.currentFen = fen;
             }
-
+        }
 
     }
 </script>
