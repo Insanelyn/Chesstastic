@@ -9,14 +9,8 @@
             <nav>
                 <ul class="nav">
                     <li><router-link to="/game">Spela</router-link></li>
-                    <li>Lära sig</li>
-                    <li>Titta</li>
-                    <li>Gemenskap</li>
-                    <li>Verktyg</li>
                 </ul>
             </nav>
-
-
         </div>
         <img class="branding-logo" src="../assets/images/chess_piece_king.png">
     </div>
@@ -38,8 +32,8 @@
 
 <style scoped>
     .container-fluid{
-        background-color: lightsalmon;
-        opacity: 0.9;
+        background-color: darkgrey;
+        opacity: 0.7;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -61,13 +55,16 @@
     }
 
 
-    li {
+    li > a {
+        color: black;
         list-style-type: none;
-        margin-right: 8px;
+        font-size: 24px;
+        margin-left: 48px;
     }
 
-    li:hover {
-        color: grey;
+    li > a:hover {
+        background-color: lightgray;
+        padding: 5px;
     }
 
 </style>
