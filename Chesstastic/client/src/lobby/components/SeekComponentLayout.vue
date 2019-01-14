@@ -15,9 +15,6 @@
         </router-link>
       </div>
     </div>
-    <div class="container view">
-      <router-view></router-view>
-    </div>
   </div>
 </template>
 
