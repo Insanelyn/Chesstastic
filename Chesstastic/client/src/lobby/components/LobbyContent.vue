@@ -50,7 +50,6 @@
             socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
                 this.userData = rawData;
-                console.log(JSON.stringify(this.userData));
             });
         }
     }
