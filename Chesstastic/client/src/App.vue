@@ -3,12 +3,8 @@
   <div id="app">
 
     <TheHeader />
-
     <TheFooter />
-
     <SeekComponentLayout />
-
-
 
   </div>
 
@@ -26,10 +22,9 @@ import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
 export default {
   name: 'app',
   components: {
-    TheChessboard,
+
       TheHeader,
-      TheFooter
-      TheHeader,
+      TheFooter,
       SeekComponentLayout
   }
 }

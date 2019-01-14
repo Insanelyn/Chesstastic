@@ -28,7 +28,7 @@
 
 <style scoped>
     .container-fluid{
-        background-color: lightsalmon;
+        background-color: darkgrey;
         opacity: 0.9;
         display: flex;
         align-items: center;
