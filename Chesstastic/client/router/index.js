@@ -6,6 +6,7 @@ import KorrespondensContent from '../src/lobby/components/KorrespondensContent'
 import ContainerComponent from '@/game/components/ContainerComponent'
 import LobbyFilterComponent from '../src/lobby/components/LobbyFilterComponent'
 
+
 const routes = [
     {
         path: '/layout',
@@ -27,16 +28,17 @@ const routes = [
         name:'KorrespondensContent',
         component: KorrespondensContent
     },
-    {
-        path: 'Container',
-        name:'Container',
-        component: ContainerComponent
-    },   
+
     {
         path: '/filter',
         name:'filter',
         component: LobbyFilterComponent
     },
+    {
+        path: '/game',
+        name:'Container',
+        component: ContainerComponent
+    }
 
 ];
 
