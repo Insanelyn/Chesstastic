@@ -8,7 +8,8 @@
             <th class="header">Tid</th>
             <th class="header">Typ</th>
         </tr>
-        <tr v-for="(user,i) in userRaw" :key="i">
+
+        <tr v-for="(user,i) in userData" :key="i">
             <td><span class="fas fa-adjust"> {{user.user}}</span></td>
             <td>{{user.ranked}}</td>
             <td>{{user.time}}</td>
