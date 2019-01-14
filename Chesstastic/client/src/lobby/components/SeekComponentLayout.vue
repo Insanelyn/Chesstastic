@@ -42,6 +42,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .view {
   padding: 1%;
 }
@@ -49,6 +51,8 @@ export default {
 .tab-container {
   margin-top: 20px;
   text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .tab-item {
