@@ -8,31 +8,38 @@
             <th class="header">Tid</th>
             <th class="header">Typ</th>
         </tr>
-        <tr>
-            <td><span class="fas fa-adjust"> MadChess</span></td>
-            <td>1568</td>
-            <td>1</td>
-            <td><span class="fas fa-bolt"> Rankat</span></td>
-        </tr>
-        <tr>
-            <td><span class="fas fa-adjust"> MacCheese</span></td>
-            <td>684</td>
-            <td>2</td>
-            <td><span class="fas fa-bolt"> Rankat</span></td>
-        </tr>
-        <tr>
-            <td><span class="fas fa-adjust"> CoolWomen</span></td>
-            <td>1568</td>
-            <td>3</td>
-            <td><span class="fas fa-bolt"> Rankat</span></td>
+        <tr v-for="(user,i) in userRaw" :key="i">
+            <td><span class="fas fa-adjust"> {{user.user}}</span></td>
+            <td>{{user.ranked}}</td>
+            <td>{{user.time}}</td>
+            <td><span class="fas fa-bolt"> {{user.rating}}</span></td>
         </tr>
     </table>
     </div>
 </template>
 
 <script>
+
+    import io from 'socket.io-client';
+
+    const socket = io.connect('http://localhost:5000');
+
     export default {
-        name: "LobbyContent"
+        name: "LobbyContent",
+
+        data() {
+            return {
+                userData: []
+            }
+        },
+
+        mounted() {
+            socket.on('MOCKDATA_SEEK', (data) => {
+                const rawData = Array.of(data).flat();
+                this.userData = rawData;
+                console.log(this.userData);
+            });
+        }
     }
 </script>
 

@@ -29,13 +29,11 @@
 
     export default {
 
-        data: function () {
+            data () {
+                return {
 
-
-            return {
-
-            }
-        },
+                }
+            },
 
         name: "SeeksComponentLayout",
 
