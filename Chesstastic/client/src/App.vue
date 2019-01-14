@@ -3,9 +3,10 @@
   <div id="app">
 
     <TheHeader />
-    <TheFooter />
     <SeekComponentLayout />
 
+      <router-view></router-view>
+    <TheFooter />
   </div>
 
 </template>

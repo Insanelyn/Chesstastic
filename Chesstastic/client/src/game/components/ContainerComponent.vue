@@ -260,6 +260,7 @@
         padding-top: 50px;
         padding-bottom: 50px;
         background: url('../../assets/images/chessbackground.jpg');
+        height: 100%;
     }
 
     .containerWrapper {
