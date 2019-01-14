@@ -188,7 +188,7 @@
 
             sendLogin(e) {
                 e.preventDefault();
-                //this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
+                this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
                 this.loginUsername = '';
                 this.loginPassword = '';
             },
@@ -212,7 +212,7 @@
                 this.loginCreateUsername = '';
                 this.loginCreatePassword = '';
                 this.loginConfirmPassword = '';
-                }
+                
 
             },
 
@@ -249,7 +249,7 @@
             loadFen(fen) {
                 this.currentFen = fen;
             }
-
+        }
 
     }
 </script>

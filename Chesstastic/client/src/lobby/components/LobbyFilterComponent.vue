@@ -59,10 +59,15 @@
         <i class="fas fa-ban"></i> Återställ
       </button>
       
-      <button type="button" class="btn btn-success">
-        <i class="fas fa-check"></i> Använd
+       <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
+             <button type="button" class="btn btn-success">
+
+                <i class="fas fa-check"></i> Använd
+
       </button>
       
+            </router-link>
+
       <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"

@@ -8,11 +8,7 @@
         <div class="nav-list">
             <nav>
                 <ul class="nav">
-                    <li>Spela</li>
-                    <li>Lära sig</li>
-                    <li>Titta</li>
-                    <li>Gemenskap</li>
-                    <li>Verktyg</li>
+                    <li><router-link to="/game">Spela</router-link></li>
                 </ul>
             </nav>
         </div>
@@ -33,8 +29,8 @@
 
 <style scoped>
     .container-fluid{
-        background-color: orange;
-        opacity: 0.9;
+        background-color: darkgrey;
+        opacity: 0.7;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,11 +47,17 @@
         float: right;
         margin-left: 420px;
     }
-    li {
+
+
+    li > a {
+        color: black;
         list-style-type: none;
-        margin-right: 8px;
+        font-size: 24px;
+        margin-left: 48px;
     }
-    li:hover {
-        color: grey;
+
+    li > a:hover {
+        background-color: lightgray;
+        padding: 5px;
     }
 </style>
