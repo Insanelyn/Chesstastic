@@ -4,15 +4,17 @@
     <div class="grid-container">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
+
         <h2 class="th-1">Spelare</h2>
 
-        <h2 class="th-2">Rating</h2>
+        <h2 class="th-2" v-on:click="userRating">Rating</h2>
 
         <h2 class="th-3">Tid</h2>
 
        <h2 class="th-4">Typ<router-link tag="a" :to = "{name: 'filter',}">
            <button class="btn btn-settings pull-right" ><i class="fa fa-sliders-h"></i></button>
        </router-link></h2>
+
     </div>
         <!-------------------------------------------------------------------------------------------------------------------->
 
@@ -20,13 +22,13 @@
 
         <div  class="column-1"> {{user.user}}</div>
 
-        <div class="column-2"> {{user.ranked}} </div>
+        <div class="column-2"> {{user.rating}} </div>
 
         <div class="column-3"> {{user.time}} </div>
 
-        <div class="column-4"> {{user.rating}} </div>
+        <div class="column-4"> {{user.ranked}} </div>
 
-        </div>
+    </div>
     </container>
 </template>
 
@@ -41,16 +43,27 @@
 
         data() {
             return {
-                userData: []
-
+                userData: [],
+                ratingData: false
             }
         },
 
         mounted() {
             socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
-                this.userData = rawData;
+                if(this.ratingData === true ) {
+                        this.userData = rawData.filter(user => user.rating >= 1000);
+                }
+                else {
+                    this.userData = rawData;
+                }
             });
+        },
+
+        methods: {
+            userRating() {
+                this.ratingData = this.ratingData === false;
+            }
         }
     }
 
