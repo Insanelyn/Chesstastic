@@ -14,7 +14,7 @@ const routes = [
         component: SeekComponentLayout
     },
     {
-        path: '/SnabbParning',
+        path: '/',
         name:'SnabbParning',
         component: SnabbParningContent
     },

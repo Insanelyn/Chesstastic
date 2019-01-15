@@ -35,7 +35,12 @@ export default {
     SnabbParningContent,
     LobbyContent,
     KorrespondensContent
-  }
+  },
+
+    mounted () {
+      let hidden = document.getElementsByClassName("container");
+      hidden[0].style.display = "block";
+    }
 };
 
 </script>
