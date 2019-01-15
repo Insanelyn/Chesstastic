@@ -238,7 +238,7 @@
                 if(data && this.turn === this.color) {
                     this.positionInfo = data;
                     this.currentFen = data.fen; 
-                    if (data.history &&  data.history.length ) {
+                    if (data.history.length) {
                         this.temp = data.history[0]
                         this.makeMove()
                     }
@@ -261,7 +261,7 @@
                         this.wonOrLost = "You Lost!!"
                 }
                 var lol = document.createElement("div");
-                lol.className = this.wonOrLost === "You Won!!" ? "winScreen" : "loseScreen";
+                lol.className = this.wonOrLost === "You Won!!" ? "winScreen gameOverScreen" : "loseScreen gameOverScreen";
                 var wtf = document.createTextNode(this.wonOrLost);
                 lol.appendChild(wtf);
                 var hello = document.getElementById("chessboard");
@@ -281,7 +281,7 @@
         background: url('../../assets/images/chessbackground.jpg');
     }
 
-    .winScreen {
+    .gameOverScreen {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -292,22 +292,13 @@
         background-color: rgba(211,211,211, 0.8);
         height: 560px;
         width: 560px;
-        color: green;
         font-size: 30px
     }
+    .winScreen {
+        color: green;
+    }
     .loseScreen {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 3;
-        background-color: rgba(211,211,211, 0.8);
-        height: 560px;
-        width: 560px;
         color: red;
-        font-size: 30px
     }
 
     .containerWrapper {
