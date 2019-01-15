@@ -7,7 +7,7 @@
 
         <h2 class="th-1">Spelare</h2>
 
-        <h2 class="th-2">Rating</h2>
+        <h2 class="th-2" v-on:click="userRating">Rating</h2>
 
         <h2 class="th-3">Tid</h2>
 
@@ -22,13 +22,13 @@
 
         <div  class="column-1"> {{user.user}}</div>
 
-        <div class="column-2"> {{user.ranked}} </div>
+        <div class="column-2"> {{user.rating}} </div>
 
         <div class="column-3"> {{user.time}} </div>
 
-        <div class="column-4"> {{user.rating}} </div>
+        <div class="column-4"> {{user.ranked}} </div>
 
-        </div>
+    </div>
     </container>
 </template>
 
@@ -43,17 +43,27 @@
 
         data() {
             return {
-                userData: []
+                userData: [],
+                ratingData: false
             }
         },
 
         mounted() {
             socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
-                this.userData = rawData;
-                console.log(this.userData);
-
+                if(this.ratingData === true ) {
+                        this.userData = rawData.filter(user => user.rating >= 1000);
+                }
+                else {
+                    this.userData = rawData;
+                }
             });
+        },
+
+        methods: {
+            userRating() {
+                this.ratingData = this.ratingData === false;
+            }
         }
     }
 
