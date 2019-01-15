@@ -39,6 +39,11 @@ function createUser(newUser) {
     }
 }
 
+createUser("veronika", "jokkmokk");
+
+//tryLogin("cmb", "gruffalon");
+//tryLogin("cmb", "gruffalo3safafn");
+
 async function findAllUsers() {
   return await User.find({}, (err, users) => {
     if (err) throw err;
@@ -73,20 +78,23 @@ async function updateHistory(username, history) {
 }
 
 async function tryLogin(username, password) {
+    console.log("1. username, password: ",  username, password)
 
-  const user = await findByUsername(username); 
-  bcrypt.compare(password, user.loginPassword, (err, res) => {
-     if(res) return true;
-     console.log("true")
-     else {
-       //console.log("true")
-       return false;
+    const user = await findByUsername(username);
+    let hashPassword = encrypt_pw(password);
+    console.log("2. user from db: ", user)
+    console.log("3. hashed password", hashPassword)
 
-     }
-  });
+    if(hashPassword === user.password) {
+
+        return true;
+    } else {
+
+        return false;
+    }
+
 }
-//tryLogin("cmb", "gruffalon");
-//tryLogin("cmb", "gruffalo3safafn");
+
 
 module.exports = {
   tryLogin,

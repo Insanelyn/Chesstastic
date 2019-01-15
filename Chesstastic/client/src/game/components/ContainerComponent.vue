@@ -173,6 +173,10 @@
                 this.statistics=data.statistics;
             });
 
+            this.socket.on('CREATE_MSG', (data) => {
+                console.log(data.msg);
+            });
+
         },
         methods: {
 
@@ -191,6 +195,7 @@
                 this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
                 this.loginUsername = '';
                 this.loginPassword = '';
+                console.log("User: ", this.username);
             },
 
             sendRequest(e) {
@@ -200,13 +205,11 @@
                 if(regExUsername.test(this.loginCreateUsername) && regExPassword.test(this.loginCreatePassword)) {
 
                     if (this.loginCreatePassword === this.loginConfirmPassword) {
-                        this.confirmationOfAccount = "Registration of account succeeded";
+                        this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     } else  {
-                            this.confirmationOfAccount = "Registration of account failed";
+                            this.confirmationOfAccount = "Passwords not matching!";
                         }
 
-                        console.log("matching!");
-                        // this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     }
 
                 this.loginCreateUsername = '';

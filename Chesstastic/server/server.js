@@ -13,14 +13,12 @@ const mongoose = require('mongoose');
 const randomFullname = require('random-fullName');
 const Chess = require('chess.js').Chess;
 let { Instance, que } = require('./datastruct.js');
-let { 
-  trylogin,
-  updateHistory,
-  findByUsername,
-  findById,
-  findAllUsers,
-  createUser 
+let {
+  tryLogin,
+  createUser
 } = require('./controllers.js');
+
+
 
 // ---------------------------------------------------------------------------------------
 // helpers (mock) ------------------------------------------------------------------------
@@ -34,7 +32,7 @@ function mockSeekUsers(n) {
 		return `${val1}+${val2}`;
 	};
 
-	const isRanked = () => randMinMax(0, 2) === 0 ? "Ej rankad" : "Raknad";
+	const isRanked = () => randMinMax(0, 2) === 0 ? "Ej rankad" : "Rankad";
 
 	let users = [];
 
@@ -166,14 +164,29 @@ io.on('connection', (socket) => {
       });   
     });
 
-    socket.on('LOGIN_SEND', (login) => {
-        io.sockets.in(thisRoom).emit('LOGIN_SEND', {
-            loginUsername: user,
-            loginPassword: socket.user
-        });
+    socket.on('LOGIN_SEND', (data) => {
+        if(tryLogin(data.loginUsername, data.loginPassword)){
+            console.log(data.username);
+            io.sockets.in(thisRoom).emit('LOGIN_SUC', { user: data.loginUsername });
+        } else {
+            io.sockets.in(thisRoom).emit('LOGIN_FAIL', { msg: "LOGIN EPIC FAIL"});
+        }
+    });
+
+
+    socket.on('REQUEST_SEND', (data) => {
+        let requestUser = createUser(data.username, data.password);
+        console.log(requestUser);
+        if(requestUser) {
+            io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account succeeded"});
+        } else {
+            io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account failed"});
+        }
+
     });
 
   setInterval(() => {
 	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
   }, 1000);
 });
+
