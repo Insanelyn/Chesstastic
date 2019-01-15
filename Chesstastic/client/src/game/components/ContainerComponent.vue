@@ -130,6 +130,9 @@
             }
         },
         mounted () {
+            var hejhej = document.getElementsByClassName("container");
+            hejhej[0].style.display = "none";
+
             this.switchRoom()               
             this.socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
@@ -273,7 +276,6 @@
 </script>
 
 <style>
-
 
     .chessbackground {
         padding-top: 50px;
