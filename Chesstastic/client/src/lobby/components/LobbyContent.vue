@@ -17,18 +17,19 @@
 
     </div>
         <!-------------------------------------------------------------------------------------------------------------------->
-
+<router-link tag="div" :to="{name: 'Container'}">
         <div class="container"  v-for="(user,i) in userData" :key="i" >
 
-        <div  class="column-1"> {{user.user}}</div>
+            <div  class="column-1"> {{user.user}}</div>
 
-        <div class="column-2"> {{user.rating}} </div>
+            <div class="column-2"> {{user.rating}} </div>
 
-        <div class="column-3"> {{user.time}} </div>
+            <div class="column-3"> {{user.time}} </div>
 
-        <div class="column-4"> {{user.ranked}} </div>
+            <div class="column-4"> {{user.ranked}} </div>
 
     </div>
+</router-link>
     </container>
 </template>
 
