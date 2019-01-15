@@ -80,7 +80,7 @@
 
     import ChatComponent from './ChatComponent.vue'
     import ingameBox from './ingameBox.vue'
-    import { chessboard } from 'vue-chessboard'
+    import { chessboard } from '../../vue-chessboard';
     import io from 'socket.io-client';
 
    // const socket =
@@ -112,6 +112,7 @@
                 status: "",
                 time: 0,
                 temp: [],
+                wonOrLost: "",
                 historyOfMoves: [],
                 positionInfo: null,
                 currentFen: "",
@@ -129,6 +130,9 @@
             }
         },
         mounted () {
+            var hejhej = document.getElementsByClassName("container");
+            hejhej[0].style.display = "none";
+
             this.switchRoom()               
             this.socket.on('MOCKDATA_SEEK', (data) => {
                 const rawData = Array.of(data).flat();
@@ -151,6 +155,9 @@
                 this.room = `PLAYS at ${data.room}`;
             });
             this.socket.on('CHESS_ACTION', (data) => {
+                if(data.status === "CHECKMATE!") {
+                    this.gameEnds();
+                }
                 this.board = data.board;
                 this.status = data.status;
                 this.turn = data.turn;
@@ -205,7 +212,6 @@
                             this.confirmationOfAccount = "Registration of account failed";
                         }
 
-                        console.log("matching!");
                         // this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     }
 
@@ -235,7 +241,7 @@
                 if(data && this.turn === this.color) {
                     this.positionInfo = data;
                     this.currentFen = data.fen; 
-                    if (data.history.length ) {
+                    if (data.history.length) {
                         this.temp = data.history[0]
                         this.makeMove()
                     }
@@ -246,20 +252,55 @@
                 }
 
             },
+
             loadFen(fen) {
                 this.currentFen = fen;
+            },
+
+            gameEnds() {
+                if(this.turn === this.color) {
+                        this.wonOrLost = "You Won!!"
+                    } else {
+                        this.wonOrLost = "You Lost!!"
+                }
+                var lol = document.createElement("div");
+                lol.className = this.wonOrLost === "You Won!!" ? "winScreen gameOverScreen" : "loseScreen gameOverScreen";
+                var wtf = document.createTextNode(this.wonOrLost);
+                lol.appendChild(wtf);
+                var hello = document.getElementById("chessboard");
+                hello.appendChild(lol);
             }
         }
 
     }
 </script>
 
-<style scoped>
+<style>
 
     .chessbackground {
         padding-top: 50px;
         padding-bottom: 50px;
         background: url('../../assets/images/chessbackground.jpg');
+    }
+
+    .gameOverScreen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        background-color: rgba(211,211,211, 0.8);
+        height: 560px;
+        width: 560px;
+        font-size: 30px
+    }
+    .winScreen {
+        color: green;
+    }
+    .loseScreen {
+        color: red;
     }
 
     .containerWrapper {
@@ -282,6 +323,7 @@
     }
 
     #chessboard {
+        position: relative;
         width: 560px;
         height: 560px;
         padding: 20px;
