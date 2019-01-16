@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 import SnabbParningContent from "./SnabbParningContent";
 import LobbyContent from "./LobbyContent";
 import KorrespondensContent from "./KorrespondensContent";
@@ -34,19 +35,21 @@ export default {
     SnabbParningContent,
     LobbyContent,
     KorrespondensContent
-  }
+  },
+
+    mounted () {
+      let hidden = document.getElementsByClassName("container");
+      hidden[0].style.display = "block";
+    }
 };
+
 </script>
 
 <style scoped>
 
 
-.view {
-  padding: 1%;
-}
-
 .tab-container {
-  margin-top: 20px;
+  margin-top: 8px;
   text-align: center;
   margin-right: auto;
   margin-left: auto;

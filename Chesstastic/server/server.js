@@ -13,9 +13,15 @@ const mongoose = require('mongoose');
 const randomFullname = require('random-fullName');
 const Chess = require('chess.js').Chess;
 let { Instance, que } = require('./datastruct.js');
-let {
-  tryLogin,
-  createUser
+
+let mocked_data_seekUsers = require('./mock_seek_users.js');
+let { 
+  trylogin,
+  updateHistory,
+  findByUsername,
+  findById,
+  findAllUsers,
+  createUser 
 } = require('./controllers.js');
 
 
@@ -196,7 +202,7 @@ io.on('connection', (socket) => {
     });
 
   setInterval(() => {
-	  socket.emit('MOCKDATA_SEEK', mockSeekUsers(15));
+	  socket.emit('MOCKDATA_SEEK', mocked_data_seekUsers);
   }, 1000);
 });
 

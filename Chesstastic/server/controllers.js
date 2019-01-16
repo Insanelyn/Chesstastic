@@ -17,7 +17,6 @@ function encrypt_pw(pw) {
   const regExPassword = /^[a-zA-Z0-9]{7,15}/;
 
   if(regExUsername.test(newUser.username) && regExPassword.test(newUser.password)) {
-      console.log(newUser)
       const hash = sha1(newUser.password);
 
         const currentDate = new Date();
@@ -32,7 +31,6 @@ function encrypt_pw(pw) {
          
         user.save(function(err) {
           if (err) throw err;
-            console.log(user);
 
         });
       return true;

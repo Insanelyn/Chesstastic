@@ -2,7 +2,9 @@
 
     <div class="container-fluid">
         <div>
+            <router-link tag="a" :to="{path: '/',}">
             <h1>Chesstastic</h1>
+            </router-link>
         </div>
 
         <div class="nav-list">
