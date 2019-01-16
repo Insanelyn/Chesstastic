@@ -217,7 +217,6 @@
                 if(regExUsername.test(this.loginCreateUsername) && regExPassword.test(this.loginCreatePassword)) {
 
                     if (this.loginCreatePassword === this.loginConfirmPassword) {
-                        console.log(this.loginCreateUsername, this.loginCreatePassword)
                         this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     } else  {
                             this.confirmationOfAccount = "Passwords not matching!";
