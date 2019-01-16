@@ -7,6 +7,10 @@
     <router-view></router-view>
     <TheFooter />
     
+    
+    
+    
+    
   </div>
 
 </template>
