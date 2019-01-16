@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "buttercms": "^1.1.2",
+    "chess.js": "^0.10.2",
+    "chessground": "^7.3.5",
     "core-js": "^2.6.1",
     "faker": "^4.1.0",
     "rxjs": "^6.3.3",

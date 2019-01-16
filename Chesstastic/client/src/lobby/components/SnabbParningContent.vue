@@ -68,7 +68,8 @@
 
       <router-link class="quickplay" tag="a" :to="{name: 'Container',}">
     <div class="square column-3-row-3">
-        <h3>Anpassad</h3>
+        <h2>Anpassad</h2>
+        <h3>Classical</h3>
     </div>
           </router-link>
 
