@@ -4,32 +4,26 @@
 
     <TheHeader />
     <SeekComponentLayout />
-
-      <router-view></router-view>
+    <router-view></router-view>
     <TheFooter />
+    
   </div>
 
 </template>
 
 <script>
-import TheHeader from './allpages/TheHeader.vue'
+    import TheHeader from './allpages/TheHeader.vue'
+    import TheFooter from './allpages/TheFooter.vue'
+    import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
+    export default {
+        name: 'app',
+        components: {
+            TheHeader,
+            TheFooter,
+            SeekComponentLayout
+        }
+    }
 
-import TheFooter from './allpages/TheFooter.vue'
-
-import SeekComponentLayout from "./lobby/components/SeekComponentLayout";
-
-
-
-export default {
-  name: 'app',
-  components: {
-
-      TheHeader,
-      TheFooter,
-      SeekComponentLayout
-  }
-}
-    
 </script>
 
 <style>

@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const randomFullname = require('random-fullName');
 const Chess = require('chess.js').Chess;
 let { Instance, que } = require('./datastruct.js');
+
 let mocked_data_seekUsers = require('./mock_seek_users.js');
 let { 
   trylogin,
@@ -22,6 +23,8 @@ let {
   findAllUsers,
   createUser 
 } = require('./controllers.js');
+
+
 
 // ---------------------------------------------------------------------------------------
 // helpers (mock) ------------------------------------------------------------------------
@@ -35,7 +38,7 @@ function mockSeekUsers(n) {
 		return `${val1}+${val2}`;
 	};
 
-	const isRanked = () => randMinMax(0, 2) === 0 ? "Ej rankad" : "Raknad";
+	const isRanked = () => randMinMax(0, 2) === 0 ? "Ej rankad" : "Rankad";
 
 	let users = [];
 
@@ -68,6 +71,8 @@ app.use(express.static(`${__dirname}/public`));
 
 const server = app.listen(PORT, () => {
 	console.log(`Server listens only to port ${PORT}.`);
+
+
 });
 
 app.get("/", (req, res) => {
@@ -167,7 +172,37 @@ io.on('connection', (socket) => {
       });   
     });
 
+    socket.on('LOGIN_SEND', (data) => {
+        let test = tryLogin(data.username, data.password);
+        test.then(user => {
+            if(user) {
+                socket.user = data.username;
+                io.sockets.in(thisRoom).emit('LOGIN_SUC', {user: data.username});
+                io.sockets.in(thisRoom).emit('NEW_MSG',    {
+                    message: `User login as ${socket.user}`,
+                    user: socket.user
+                });
+            } else {
+                io.sockets.in(thisRoom).emit('LOGIN_FAIL', {msg: "LOGIN EPIC FAIL"});
+            }
+    })
+        .catch(e => console.log(e))
+    });
+
+    socket.on('REQUEST_SEND', (data) => {
+        let requestUser = createUser({username: data.username, password: data.password});
+        setTimeout(() => {
+            if (requestUser) {
+                io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account succeeded"});
+            } else {
+                io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account failed"});
+            }
+        }, 1000)
+
+    });
+
   setInterval(() => {
 	  socket.emit('MOCKDATA_SEEK', mocked_data_seekUsers);
   }, 1000);
 });
+
