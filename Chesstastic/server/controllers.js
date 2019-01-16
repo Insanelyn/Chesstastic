@@ -11,14 +11,17 @@ function encrypt_pw(pw) {
   })
 }
 
-function createUser(newUser) {
+ function createUser(newUser) {
   
   const regExUsername = /^[a-zA-Z0-9_]{5,15}/;
   const regExPassword = /^[a-zA-Z0-9]{7,15}/;
 
   if(regExUsername.test(newUser.username) && regExPassword.test(newUser.password)) {
-      encrypt_pw(newUser.password, (err, hash) => {
+      console.log(newUser)
+      const hash = sha1(newUser.password);
+
         const currentDate = new Date();
+
         const user = new User({
           username: newUser.username,
           password: hash,
@@ -28,21 +31,18 @@ function createUser(newUser) {
         });
          
         user.save(function(err) {
-          if (err) throw err; // mess till klient... inte unikt
-          return true;
-        });
+          if (err) throw err;
+            console.log(user);
 
-      })
+        });
+      return true;
+
     } else {
-      console.log("not valid password or username"); // mess till klient... valid tecken
+      console.log("not valid password or username");
       return false;  
     }
 }
 
-createUser("veronika", "jokkmokk");
-
-//tryLogin("cmb", "gruffalon");
-//tryLogin("cmb", "gruffalo3safafn");
 
 async function findAllUsers() {
   return await User.find({}, (err, users) => {
@@ -78,30 +78,23 @@ async function updateHistory(username, history) {
 }
 
 async function tryLogin(username, password) {
-    console.log("1. username, password: ",  username, password)
 
     const user = await findByUsername(username);
-    let hashPassword = encrypt_pw(password);
-    console.log("2. user from db: ", user)
-    console.log("3. hashed password", hashPassword)
+    if(user) {
+        let hashPassword = sha1(password);
 
-    if(hashPassword === user.password) {
-
-        return true;
+        if (hashPassword === user.password) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
-
         return false;
     }
-
 }
-
 
 module.exports = {
   tryLogin,
-  updateHistory,
-  findByUsername,
-  findUserById,
-  findAllUsers,
   createUser
 };
 

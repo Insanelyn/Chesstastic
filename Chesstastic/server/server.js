@@ -65,6 +65,8 @@ app.use(express.static(`${__dirname}/public`));
 
 const server = app.listen(PORT, () => {
 	console.log(`Server listens only to port ${PORT}.`);
+
+
 });
 
 app.get("/", (req, res) => {
@@ -165,23 +167,31 @@ io.on('connection', (socket) => {
     });
 
     socket.on('LOGIN_SEND', (data) => {
-        if(tryLogin(data.loginUsername, data.loginPassword)){
-            console.log(data.username);
-            io.sockets.in(thisRoom).emit('LOGIN_SUC', { user: data.loginUsername });
-        } else {
-            io.sockets.in(thisRoom).emit('LOGIN_FAIL', { msg: "LOGIN EPIC FAIL"});
-        }
+        let test = tryLogin(data.username, data.password);
+        test.then(user => {
+            if(user) {
+                socket.user = data.username;
+                io.sockets.in(thisRoom).emit('LOGIN_SUC', {user: data.username});
+                io.sockets.in(thisRoom).emit('NEW_MSG',    {
+                    message: `User login as ${socket.user}`,
+                    user: socket.user
+                });
+            } else {
+                io.sockets.in(thisRoom).emit('LOGIN_FAIL', {msg: "LOGIN EPIC FAIL"});
+            }
+    })
+        .catch(e => console.log(e))
     });
 
-
     socket.on('REQUEST_SEND', (data) => {
-        let requestUser = createUser(data.username, data.password);
-        console.log(requestUser);
-        if(requestUser) {
-            io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account succeeded"});
-        } else {
-            io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account failed"});
-        }
+        let requestUser = createUser({username: data.username, password: data.password});
+        setTimeout(() => {
+            if (requestUser) {
+                io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account succeeded"});
+            } else {
+                io.sockets.in(thisRoom).emit('CREATE_MSG', {msg: "Registration of account failed"});
+            }
+        }, 1000)
 
     });
 

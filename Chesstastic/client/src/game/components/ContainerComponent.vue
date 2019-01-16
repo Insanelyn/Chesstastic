@@ -56,7 +56,7 @@
                             </sui-segment>
                         </sui-modal-content>
                     </sui-modal>
-                    <h3>User: {{loginUsername}}</h3>
+                    <h3>User: {{user}}</h3>
                     <h3>Your color: {{color}}</h3>
                     <h3>Game status: {{status}}</h3>
                 </div>
@@ -83,14 +83,6 @@
     import { chessboard } from 'vue-chessboard'
     import io from 'socket.io-client';
 
-   // const socket =
-
-//
-//  const board = document.querySelector(".cg-board-wrap");
-//  board.setAttribute('style', 'width: 600px');
-
-/*  const board = document.getElementsByClassName("cg-board-wrap");
-    board.setAttribute('style', 'width: 600px');*/
 
     export default {
         name: 'Container',
@@ -125,7 +117,8 @@
                 loginConfirmPassword: "",
                 socket: io.connect('http://localhost:5000'),
                 open: false,
-                confirmationOfAccount: ""
+                confirmationOfAccount: "",
+                confirmationLogin: ""
             }
         },
         mounted () {
@@ -174,7 +167,19 @@
             });
 
             this.socket.on('CREATE_MSG', (data) => {
-                console.log(data.msg);
+                this.confirmationOfAccount = data.msg;
+
+            });
+
+            this.socket.on('LOGIN_SUC', (data) => {
+                this.user = data.user;
+                this.toggle();
+
+            });
+
+            this.socket.on('LOGIN_FAIL', (data) => {
+                this.confirmationLogin = data.msg;
+                alert(this.confirmationLogin);
             });
 
         },
@@ -195,7 +200,7 @@
                 this.socket.emit('LOGIN_SEND', {username:this.loginUsername, password:this.loginPassword});
                 this.loginUsername = '';
                 this.loginPassword = '';
-                console.log("User: ", this.username);
+
             },
 
             sendRequest(e) {
@@ -205,6 +210,7 @@
                 if(regExUsername.test(this.loginCreateUsername) && regExPassword.test(this.loginCreatePassword)) {
 
                     if (this.loginCreatePassword === this.loginConfirmPassword) {
+                        console.log(this.loginCreateUsername, this.loginCreatePassword)
                         this.socket.emit('REQUEST_SEND', {username:this.loginCreateUsername, password: this.loginCreatePassword});
                     } else  {
                             this.confirmationOfAccount = "Passwords not matching!";
